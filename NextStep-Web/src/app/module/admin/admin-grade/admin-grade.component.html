@@ -1,0 +1,70 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+        <app-header></app-header>
+        <mat-drawer #drawer mode="side" class="sidenav-container">
+            <app-menu-drawer ></app-menu-drawer>
+        </mat-drawer>
+        <div class="main-content">
+          <div class="content-wrap">
+            <div class="header">
+              <div class="header-text">Manage Class > Grade</div>
+              <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+            </div>
+            <div class="content class-detials">
+              <div fxLayout="row" fxLayoutAlign="center center"  style="padding: 0px 0 10px 0;">
+                <button mat-raised-button type="button" color="primary" (click)="onAddEditRecord('add', { _id: 0, grade: '' })"><span class="material-icons">create_new_folder</span> Create New Grade</button>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" class="wrapper">
+                <div fxLayout="row" fxLayoutAlign="start none">
+                  <div class="mat-elevation-z8 my-table-wrapper">
+                    <table mat-table [dataSource]="dataSource">
+                      <!-- <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef style="width: 100px;"> Grade Id </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                      </ng-container> -->
+                      <ng-container matColumnDef="grade">
+                        <th mat-header-cell *matHeaderCellDef> Grade Name</th>
+                        <td mat-cell *matCellDef="let element"> {{element.grade}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef style="width: 100px;"></th>
+                        <td mat-cell *matCellDef="let element">
+                          <span class="material-icons" (click)="onAddEditRecord('edit', element)">edit</span>
+                          <span class="material-icons" (click)="onDeleteRecord(element)">delete</span>
+                        </td>
+                      </ng-container>
+      
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                      [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" 
+                      (mouseover)="row.hovered = true" 
+                      (mouseout)="row.hovered = false"></tr>
+      
+                      <!-- <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                      [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" 
+                      (click)="row.highlighted = !row.highlighted" 
+                      (mouseover)="row.hovered = true" 
+                      (mouseout)="row.hovered = false"></mat-row> -->
+                    </table>
+                  
+                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
+                  </div>            
+                </div>
+      
+              </div>
+            </div>
+          </div>
+          <!-- <app-footer ></app-footer> -->
+        </div>
+    </mat-drawer-container>
+  </div>
+  
+</div>
+

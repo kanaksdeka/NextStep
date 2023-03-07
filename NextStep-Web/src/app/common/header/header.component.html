@@ -1,0 +1,24 @@
+<div class="header-bar">
+  <div class="header-right">
+    <img src="assets/icons/truleap_single_logo.svg" width="30" class="header-logo-image-complete">
+    <!-- <div class="dashboard"><span class="material-icons">home</span></div> -->
+    <!-- <div class="dashboard">MySchoolName | Online School Management</div> -->
+    <div class="action">
+      <div [matMenuTriggerFor]="menu" class="profile-icon">
+        <img [src]="profilephoto" *ngIf="profilephoto !== ''" height="100%" width="100%" style="border-radius: 68px;"/>
+        <span *ngIf="profilephoto === ''" class="material-icons">account_circle</span>
+      </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onProfile()">Profile</button>
+        <button mat-menu-item (click)="onReset()">Change Password</button>
+        <button mat-menu-item (click)="onDifferentUser()">Login as different user</button>
+        <button mat-menu-item (click)="onLogout()">Logout</button>
+      </mat-menu>
+      <!-- <img class="profile-icon" src="assets/icons/profile.png"> -->
+      <!-- <span [matMenuTriggerFor]="menu" class="material-icons profile-icon">account_circle</span> -->
+      <mat-icon [matBadge]="notificationCount" matBadgeColor="warn" class="notification" (click)="showNotification('header')">notifications</mat-icon>
+      <div class="profile-info">{{uName}}</div>
+      <!-- <div class="profile-info">{{uName}} <br> <span class="profile-info-user">{{userType}}</span></div> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,141 @@
+<div class="main-content">
+  <div class="well-create">
+    <div class="header">
+      <div class="header-text">Profile</div>
+      <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+    </div>
+    <div class="content">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div class="profile-image">
+            <img [src]="profilephoto" *ngIf="profilephoto" height="100%" width="100%" style="border-radius: 68px;"/>
+          </div>
+        </div>
+        <!-- <input mat-raised-button color="primary" type="file" (change)="upload($event.target.files)" /> -->
+        <div fxLayout="row" fxLayoutAlign="center none">
+          <label for="file-upload" class="custom-file-upload">
+            <!-- <span class="material-icons" style="">cloud_upload</span> --> Upload Photo
+          </label>
+          <input id="file-upload" type="file" (change)="upload($event.target.files)"/>
+        </div>
+        <div class="file-error">{{fileErrorMessage}}</div>
+      <form #authForm="ngForm" (ngSubmit)="onSave(authForm)" class="profile-form">
+      <div fxLayout="row" fxLayoutAlign="start none">
+        <div class="request-form">
+          <div class="request-form-content">
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Name</mat-label>
+              <input matInput [(ngModel)]="profileData.name" id="name" name="name" placeholder="Enter Your Name Here" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput [(ngModel)]="profileData.email" id="email" name="email" placeholder="Enter Your Email Here" autocomplete="off" readonly>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline" *ngIf="profileData.category === 'S'">
+              <mat-label>Grade</mat-label>
+              <input matInput [(ngModel)]="profileData.grade" id="grade" name="grade" placeholder="Enter Your Grade" autocomplete="off" readonly>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline" *ngIf="profileData.category === 'S'">
+              <mat-label>Section</mat-label>
+              <input matInput [(ngModel)]="profileData.section" id="section" name="section" placeholder="Enter Your Section" autocomplete="off" readonly>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline" *ngIf="profileData.category === 'S'">
+              <mat-label>Semester</mat-label>
+              <input matInput [(ngModel)]="profileData.semester" id="semester" name="semester" placeholder="Enter Your Semester" autocomplete="off" readonly>
+            </mat-form-field>
+            <mat-form-field class="request-field request-field-day" appearance="outline">
+              <mat-label>DOB Day</mat-label>
+              <mat-select [(ngModel)]="profileData.day" id="day" name="day" placeholder="Enter Day" autocomplete="off" required>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="6">6</mat-option>
+                <mat-option value="7">7</mat-option>
+                <mat-option value="8">8</mat-option>
+                <mat-option value="9">9</mat-option>
+                <mat-option value="10">10</mat-option>
+                <mat-option value="11">11</mat-option>
+                <mat-option value="12">12</mat-option>
+                <mat-option value="13">13</mat-option>
+                <mat-option value="14">14</mat-option>
+                <mat-option value="15">15</mat-option>
+                <mat-option value="16">16</mat-option>
+                <mat-option value="17">17</mat-option>
+                <mat-option value="18">18</mat-option>
+                <mat-option value="19">19</mat-option>
+                <mat-option value="20">20</mat-option>
+                <mat-option value="21">21</mat-option>
+                <mat-option value="22">22</mat-option>
+                <mat-option value="23">23</mat-option>
+                <mat-option value="24">24</mat-option>
+                <mat-option value="25">25</mat-option>
+                <mat-option value="26">26</mat-option>
+                <mat-option value="27">27</mat-option>
+                <mat-option value="28">28</mat-option>
+                <mat-option value="29">29</mat-option>
+                <mat-option value="30">30</mat-option>
+                <mat-option value="31">31</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field request-field-month" appearance="outline">
+              <mat-label>DOB Month</mat-label>
+              <mat-select [(ngModel)]="profileData.month" id="month" name="month" placeholder="Enter Month" autocomplete="off" required>
+                <mat-option value="January">January</mat-option>
+                <mat-option value="February">February</mat-option>
+                <mat-option value="March">March</mat-option>
+                <mat-option value="April">April</mat-option>
+                <mat-option value="May">May</mat-option>
+                <mat-option value="June">June</mat-option>
+                <mat-option value="July">July</mat-option>
+                <mat-option value="August">August</mat-option>
+                <mat-option value="September">September</mat-option>
+                <mat-option value="October">October</mat-option>
+                <mat-option value="November">November</mat-option>
+                <mat-option value="December">December</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>ID/Roll No</mat-label>
+              <input matInput [(ngModel)]="profileData.rollNo" id="rollNo" name="rollNo" placeholder="Enter Here" autocomplete="off">
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Parent/Guardian</mat-label>
+              <input matInput [(ngModel)]="profileData.parent" id="parent" name="parent" placeholder="Enter Here" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Mobile</mat-label>
+              <input matInput [(ngModel)]="profileData.mobile" id="mobile" name="mobile" placeholder="Enter Here" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Address</mat-label>
+              <input matInput [(ngModel)]="profileData.address" id="address" name="address" placeholder="Enter Here" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>State</mat-label>
+              <input matInput [(ngModel)]="profileData.state" id="state" name="state" placeholder="Enter Here" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>PIN</mat-label>
+              <input matInput [(ngModel)]="profileData.pin" id="pin" name="pin" placeholder="Enter Here" autocomplete="off" required>
+            </mat-form-field>
+            <!-- <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Select Timezone</mat-label>
+              <mat-select name="timeZone" [(ngModel)]="profileData.timezone" required>
+                <mat-option *ngFor="let tz of tzNames" [value]="tz.tzname">{{ tz.tztext }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Timezone</mat-label>
+              <input matInput [(ngModel)]="profileData.usertimezone" id="timezone" name="timezone" placeholder="Enter Here" autocomplete="off" required>
+            </mat-form-field> -->
+          </div>
+        </div> 
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center none">
+        <button mat-raised-button color="primary" type="submit">Save Your Profile</button>
+      </div>
+      </form>
+    </div>
+  </div>    
+</div>

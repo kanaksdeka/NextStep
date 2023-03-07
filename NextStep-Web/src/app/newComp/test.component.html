@@ -1,0 +1,33 @@
+<main style="text-align: center;">
+    <span class="button" (click)="setSmallSize()">Small Size</span>
+    <span class="button" (click)="setBigSize()">Big Size</span>
+    <br><br>
+    <span class="button" (click)="getSignature()">Join Meeting</span>
+    <br><br>
+    <div>
+        <div>
+            Url:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <input style="width: 50%;" type="text" [(ngModel)]="inputUrl">
+        </div>
+        <div>
+            Token: 
+            <input style="width: 50%;" type="text" [(ngModel)]="inputToken">
+        </div>
+        <div>
+            Meeting No:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <input style="width: 50%;" type="text" [(ngModel)]="meetingNumber">
+        </div>
+        <div>
+            Password: 
+            <input style="width: 50%;" type="text" [(ngModel)]="passWord">
+        </div>
+    </div>
+
+    <div>
+    <div [ngClass] = "{'small-size': smallSize, 'big-size': bigSize}" style="border: 3px solid green; position: relative; top: 20px" #myEl>
+    </div>
+
+    </div>
+
+</main>
+  

@@ -1,0 +1,41 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+      <app-header></app-header>
+      <mat-drawer #drawer mode="side" class="sidenav-container">
+        <app-menu-drawer></app-menu-drawer>
+      </mat-drawer>
+      <div class="main-content">
+        <div class="dashboard-left-wrapper">
+            <mat-card class="admin-dashboard-card-wrapper">
+              <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                <admin-dashboard-card *ngFor="let item of groupList"
+                  [cardData]="item"
+                  (actionEvent)="onGoToPage($event)"></admin-dashboard-card>
+              </div>
+            </mat-card>
+            <!-- <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src='{{ "assets/icons/group/" + item.imageName + ".svg" }}' class="group-image"> <br>
+                <span class="card-box-text">{{item.displayName}}</span>
+              </div>
+              <div class="flip-card-back">
+                <span class="card-box-text">{{item.displayName | uppercase}}</span>
+              </div>
+            </div> -->
+            <!-- <div class="flip-card-front">
+              <img src='{{ "assets/icons/group/" + item.imageName + ".svg" }}' class="group-image"> <br>
+              <span class="card-box-text">{{item.displayName}}</span>
+            </div> -->
+        </div>
+        <!-- <app-footer ></app-footer> -->
+      </div>
+    </mat-drawer-container>
+  </div>
+</div>

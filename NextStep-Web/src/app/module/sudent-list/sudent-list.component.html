@@ -1,0 +1,57 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+        <app-header></app-header>
+        <mat-drawer #drawer mode="side" class="sidenav-container">
+            <app-menu-drawer ></app-menu-drawer>
+        </mat-drawer>
+        <div class="main-content">
+          <div class="content-wrap">
+            <div class="header">
+              <div class="header-text">My Dashboard > Class Details > Student List</div>
+              <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+            </div>
+            <div class="content class-detials">
+              <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 9%;" *ngIf="loader && data.length === 0">
+                <app-loading-spinner></app-loading-spinner>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" class="card-box" *ngIf="!loader && data.length === 0">
+                No student is associated with this class as of now !
+              </div>
+              <div fxLayout="column" fxLayoutAlign="center center" class="wrapper" *ngIf="data.length > 0">
+                <div class="search">
+                  <input [(ngModel)]="searchStudent" id="search" name="search" placeholder="Search Student" autocomplete="off">
+                </div>
+                <div class="table-wrapper">
+                  <table>
+                    <thead>
+                      <th>Student Id</th>
+                      <th>Name</th>
+                      <th class="last-th">Action</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of filterFunction(data)">
+                        <td>{{item.enrolmentnumber}}</td>
+                        <td>{{item.name}}</td>
+                        <td fxLayout="row" fxLayoutAlign="center center" class="last-td">
+                          <!-- <button mat-stroked-button color="primary">Attendance Record</button>
+                          <button mat-stroked-button color="primary" (click)="gradeBook(item)">Gradebook</button> -->
+                          <button mat-stroked-button color="primary" (click)="openNotify(item)">Send Message</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>      
+        </div>
+    </mat-drawer-container>
+  </div>
+</div>

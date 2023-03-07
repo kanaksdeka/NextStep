@@ -1,0 +1,166 @@
+.geochempro-login {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-family: Roboto;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    background-color: aliceblue;
+    background-repeat: no-repeat;
+}
+
+.geochempro-login .login-content {
+    margin-top: 7%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 65%;
+    height: 65%;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.34);
+    background-color: #ffffff;
+}
+
+.login-content .div-left {
+    width: 55%; 
+    height: 100%;  
+    float: left;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-image: url("../../assets/icons/login/group-4.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.login-content .div-right {
+    width: 45%; 
+    height: 90%;
+    float: left;
+}
+
+.div-right .logo-image {
+    width: 82%;
+    height: 22%;
+    background-image: url("../../assets/icons/login/logo.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin: 50px auto 20px auto;
+}
+
+.div-right .form-container {
+    width: 100%;
+    height: 140px;
+    padding: 0 30px 0 30px;
+}
+
+.form-container .login-form {
+    width: 100%;
+}
+  
+.form-container .login-full-width {
+    width: 100%;
+    height: 62px;
+    font-size: 12px;
+}  
+
+.form-container mat-label {
+    width: 64px;
+    height: 17px;
+    font-size: 14px;
+    line-height: 1.21;
+    letter-spacing: normal;
+    color: #839cb1;
+}
+
+.form-container .checkbox-text {
+    color: #757f8a; 
+    font-size: 12px; 
+    margin-left: -3px;
+}
+
+.form-container .password-mismatch {
+    color: #f44336;
+    font-size: 12px;
+    float: left;
+}
+
+.form-container .mat-form-field-infix {
+    border-bottom: 1px solid #839cb1;
+}
+
+.form-container .mat-raised-button {
+    line-height: 28px;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background, .mat-checkbox-indeterminate .mat-checkbox-background {
+    background-color: #0631a0 !important;
+    height: 15px !important;  
+    width: 15px !important;
+    border-radius: 3px !important;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-inner-container {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+}
+
+.form-container .mat-raised-button.mat-primary {
+    width: 73px;
+    height: 30px;
+    border-radius: 3px;
+    background-color: #2185d0;
+}
+
+.form-container .forgot-password {
+    font-size: 12px;
+    line-height: 0.67;
+    color: #0631a0;
+    margin-top: 10px;
+    cursor: pointer;
+    float: right;
+}
+
+.geochempro-login .footer-text {
+    margin-top: 30px;
+    height: 16px;
+    font-size: 10px;
+    line-height: 1.6;
+    text-align: center;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick { 
+    color: #c1cad4; 
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:landscape) {
+    .geochempro-login .login-content {
+        margin-top: 10%;
+    }
+    .div-right .logo-image {
+        margin: 25% auto 15% auto;
+    }
+}
+
+@media only screen and (device-width: 1366px) and (orientation:landscape) {
+    .geochempro-login .login-content {
+        margin-top: 13%;
+    }
+    .div-right .logo-image {
+        margin: 25% auto 15% auto;
+    }
+}
+
+@media only screen and (min-device-width: 1900px) and (max-device-width: 1920px) and (orientation:landscape) {
+    .geochempro-login .login-content {
+        margin-top: 9%;
+    }
+    .div-right .logo-image {
+        margin: 16% auto 15% auto;
+    }
+}

@@ -1,0 +1,7 @@
+'use strict';
+
+module.exports = {
+    NODE_ENV: {{ getenv "trlp.node.env" }},
+    CLIENT_ID: {{ getenv "trlp.node.client" }},
+    PORT: {{ getenv "trlp.node.port"}}
+};

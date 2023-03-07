@@ -1,0 +1,48 @@
+<div class="submit-assignment-weight-wrapper">
+  <div class="header">
+    <div class="header-text">Assignment</div>
+    <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+  </div>
+  <div class="content">
+    <form #authForm="ngForm" (ngSubmit)="saveNote(authForm)">
+      <div fxLayout="row" fxLayoutAlign="start none">
+        <div class="request-form">
+          <div class="request-form-content">
+            <!-- <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Title</mat-label>
+              <input matInput [(ngModel)]="assignmentData.noteTitle" id="noteTitle" name="noteTitle" maxlength="80" placeholder="Add Title" autocomplete="off" required>
+              <mat-hint align="end">{{assignmentData.noteTitle.length}} / 80</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="request-field-textarea" appearance="outline">
+              <mat-label>Content</mat-label>
+              <textarea matInput [(ngModel)]="assignmentData.note" id="note" name="note" maxlength="300" placeholder="Add Content" autocomplete="off" required></textarea>
+              <mat-hint align="end">{{assignmentData.note.length}} / 300</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Link/Url</mat-label>
+              <input matInput type="url" [(ngModel)]="assignmentData.link" id="linkURL" name="linkURL" placeholder="Add Link/Url" autocomplete="off">
+            </mat-form-field> -->
+            <div fxLayout="row" fxLayoutAlign="start none">
+              <div fxFlex="80" class="request-field-image" appearance="outline">
+                <mat-label>Uplaod Assignment Here</mat-label>
+                <input type="file" [(ngModel)]="assignmentData.image" (change)="handleFileInput($event.target.files)" id="image" name="image" placeholder="image" autocomplete="off">
+              </div>
+              <!-- <div class="request-field" style="height: 30px; padding-left: 40%; margin: 16px 0 0 0;" appearance="outline">
+                <mat-radio-group matInput [(ngModel)]="assignmentData.checked" aria-label="Select an option" id="checked" name="checked">
+                  <mat-radio-button value="Public">Public</mat-radio-button>
+                  <mat-radio-button value="Private">Private</mat-radio-button>
+                </mat-radio-group>
+              </div> -->
+            </div>
+          </div>
+        </div> 
+      </div>
+      <div style="margin: 10px 0 10px 0;">
+        <mat-progress-bar *ngIf="fileStProgressBar" mode="indeterminate"></mat-progress-bar>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center none">
+        <button mat-raised-button color="primary" type="submit" style="width: 154px;" [disabled]="!authForm.valid">Submit Assignment</button>
+      </div>
+      </form>
+  </div>
+</div>

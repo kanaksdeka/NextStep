@@ -1,0 +1,116 @@
+<div class="gcp-body">
+    <div class="menu-static">
+        <div class="header-logo">
+            <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+        </div>
+        <app-menu-static></app-menu-static>
+    </div>
+    <div class="dashboard-container">
+        <mat-drawer-container autosize>
+            <app-header></app-header>
+            <mat-drawer #drawer mode="side" class="sidenav-container">
+                <app-menu-drawer></app-menu-drawer>
+            </mat-drawer>
+            <div class="main-content">
+                <div class="content-wrap">
+                    <div class="header">
+                        <div class="header-text">Communication</div>
+                        <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()"
+                            aria-label="Example close icon">close</mat-icon>
+                    </div>
+                    <div class="content class-detials">
+                        <div fxLayout="row" fxLayoutAlign="center center" class="wrapper">
+                          <div class="card-box" fxFlex="50">
+                            <form #authForm="ngForm" (ngSubmit)="onSave(authForm)">
+                              <div fxLayout="row" fxLayoutAlign="start none">
+                                <div class="request-form">
+                                  <div class="request-form-content">
+                                    <app-loading-spinner *ngIf="loader"></app-loading-spinner>
+                                    <mat-form-field class="request-field" appearance="outline">
+                                      <mat-label>Select User Type</mat-label>
+                                      <mat-select matInput [(ngModel)]="dataObject.userType" id="userType" name="userType" (selectionChange)="clearFields()" required>
+                                        <mat-option value="to_all">Entire School</mat-option>
+                                        <mat-option value="to_all_teachers">All Teacher's</mat-option>
+                                        <mat-option value="to_individual_teacher">Individual Teacher</mat-option>
+                                        <mat-option value="to_class">Class (All Student's)</mat-option>
+                                        <!-- <mat-option value="student">Individual Student</mat-option> -->
+                                      </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'to_individual_teacher'">
+                                      <mat-label>Select User</mat-label>
+                                      <mat-select [(ngModel)]="dataObject.teacherid" id="teacherid" name="teacherid" required>
+                                        <mat-option *ngFor="let item of teacherList" [value]="item._id">{{item.profile.fullname}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'to_class' || dataObject.userType === 'student'">
+                                      <mat-label>Semester</mat-label>
+                                      <mat-select [(ngModel)]="dataObject.semester" id="semester" name="semester" (selectionChange)="getStudentList()" required>
+                                        <mat-option *ngFor="let item of semesterList" [value]="item._id">{{item.semester}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'to_class' || dataObject.userType === 'student'">
+                                      <mat-label>Grade</mat-label>
+                                      <mat-select [(ngModel)]="dataObject.grade" id="grade" name="grade" (selectionChange)="getStudentList()" required>
+                                        <mat-option *ngFor="let item of gradeList" [value]="item._id">{{item.grade}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'to_class'">
+                                      <mat-label>Section</mat-label>
+                                      <mat-select [(ngModel)]="dataObject.section" id="section" name="section" required>
+                                        <mat-option *ngFor="let item of sectionList" [value]="item._id">{{item.section}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'student'">
+                                      <mat-label>Section</mat-label>
+                                      <mat-select [(ngModel)]="dataObject.section" id="section" name="section" (selectionChange)="getStudentList()" required>
+                                        <mat-option *ngFor="let item of sectionList" [value]="item._id">{{item.section}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                    <!-- <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'class'">
+                                      <mat-label>Subject</mat-label>
+                                      <mat-select [(ngModel)]="dataObject.subject" id="subject" name="subject" required>
+                                        <mat-option *ngFor="let item of subjectList" [value]="item.subject">{{item.subject}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'student'">
+                                      <mat-label>Subject</mat-label>
+                                      <mat-select [(ngModel)]="dataObject.subject" id="subject" name="subject" (selectionChange)="getStudentList()" required>
+                                        <mat-option *ngFor="let item of subjectList" [value]="item.subject">{{item.subject}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field> -->
+                                    <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'student'">
+                                      <mat-label>Student</mat-label>
+                                      <mat-select [(ngModel)]="dataObject.student" id="student" name="student" required>
+                                          <mat-option *ngFor="let item of studentList" [value]="item.studentid">{{item.name}}</mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                    <mat-form-field class="request-field-text" appearance="outline">
+                                      <mat-label>Message</mat-label>
+                                      <textarea style="height: 70px;" matInput [(ngModel)]="dataObject.message" id="message" name="message" placeholder="Enter Message" autocomplete="off" required></textarea>
+                                    </mat-form-field>
+                                  </div>
+                                </div> 
+                              </div>
+                              <div style="height: 30px;">
+                                <div *ngIf="successful" style="color: orangered; font-size: 12px;">Notification is send successfully !</div>
+                              </div>
+                              <div fxLayout="row" fxLayoutAlign="center none">
+                                <button mat-raised-button color="primary" type="submit">Send Message</button>
+                              </div>
+                            </form>
+                          </div>          
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="center center" class="wrapper-message">
+                          <div class="card-box-success" fxFlex="50" *ngIf="messageText === 'succuss'">
+                            Email sent successfully !
+                          </div>
+                          <div class="card-box-error" fxFlex="50" *ngIf="messageText === 'error'">Invalid users: {{errorText}}</div>
+                        </div>
+                      </div>
+                </div>
+                <!-- <app-footer ></app-footer> -->
+            </div>
+        </mat-drawer-container>
+    </div>
+
+</div>

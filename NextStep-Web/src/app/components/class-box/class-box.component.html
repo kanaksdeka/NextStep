@@ -1,0 +1,30 @@
+<!-- <div fxLayout="row" fxLayoutAlign="start none" class="card-box" [ngClass]="{'active-box': classData.id === '121'}"> -->
+<div [ngClass]="classData.currentClass ? 'selected-class' : ''" class="card-box">
+  <div style="border-bottom: 1px solid #c1cad4; padding: 5px 5px 5px 10px; font-weight: 500;">
+    {{classData.subject}}
+    <span *ngIf="classAction"  [matMenuTriggerFor]="menucard" class="material-icons" style="cursor: pointer; float: right; font-size: 20px;">more_vert</span>
+    <mat-menu #menucard="matMenu">
+      <button mat-menu-item color="primary" (click)="onClickAction('edit', classData)">Class Details</button>
+      <button mat-menu-item *ngIf="category === 'T'" color="primary" (click)="onClickAction('class', classData)">Go To Class</button>
+      <button mat-menu-item *ngIf="category === 'S'" color="primary" (click)="onClickAction('notes', classData)">My Notes</button>
+      <button mat-menu-item color="primary" (click)="onClickAction('history', classData)">Doc History</button>
+    </mat-menu>
+  </div>
+  <div style="padding: 15px 5px 10px 10px; font-size: 10px;">
+    <div>Semester: <span class="font-500">{{classData.semester}}</span></div>
+    <div>Grade: <span class="font-500">{{classData.class}}</span></div>
+    <div>Section: <span class="font-500">{{classData.section}}</span></div>
+    <div style="padding-bottom: 5px;">Time:  <span class="font-500">{{classData.time}}</span></div>
+    <mat-chip-list>
+      <mat-chip style="padding: 0px 10px; min-height: 22px; font-size: 10px;" *ngFor="let chip of classData.days" selected [color]="chip.color">
+        {{getShortDay(chip)}}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <!-- <div fxLayout="column" fxLayoutAlign="center center" *ngIf="classAction">
+    <button mat-stroked-button color="primary" (click)="onClickAction('edit', classData)">Class Details</button>
+    <button *ngIf="category === 'T'" mat-stroked-button color="primary" (click)="onClickAction('class', classData)">Go To Class</button>
+    <button *ngIf="category === 'S'" mat-stroked-button color="primary" (click)="onClickAction('notes', classData)">My Notes</button>
+    <button *ngIf="category === 'T'" mat-stroked-button color="primary" (click)="onClickAction('history', classData)">Doc History</button>
+  </div> -->
+</div>

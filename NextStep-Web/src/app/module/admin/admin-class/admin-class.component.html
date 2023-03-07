@@ -1,0 +1,107 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+        <app-header></app-header>
+        <mat-drawer #drawer mode="side" class="sidenav-container">
+            <app-menu-drawer ></app-menu-drawer>
+        </mat-drawer>
+        <div class="main-content">
+          <div class="content-wrap">
+            <div class="header">
+              <div class="header-text">Manage Class</div>
+              <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+            </div>
+            <div class="content class-detials">
+              <div fxLayout="row" fxLayoutAlign="start center"  style="padding: 0px 40px 10px 38px;">
+                <div fxLayout="row" fxFlex="90" fxLayoutAlign="start center" class="button-lists">
+                  <button mat-raised-button type="button" color="primary" (click)="goToRoute('semester')" style="margin-right: 10px;"><span class="material-icons">filter_1</span> Manage Semester</button>
+                  <button mat-raised-button type="button" color="primary" (click)="goToRoute('subject')" style="margin-right: 10px;"><span class="material-icons">filter_2</span> Manage Subject</button>
+                  <button mat-raised-button type="button" color="primary" (click)="goToRoute('grade')" style="margin-right: 10px;"><span class="material-icons">filter_3</span> Manage Grade</button>
+                  <button mat-raised-button type="button" color="primary" (click)="goToRoute('section')" style="margin-right: 10px;"><span class="material-icons">filter_4</span> Manage Section</button>
+                  <button mat-raised-button type="button" color="primary" (click)="onAddEditRecord('add', '')"><span class="material-icons">filter_5</span> Create New Class</button>
+                </div>
+                <!-- <div fxLayout="row" fxLayoutAlign="end end">
+                  <button mat-raised-button type="button" (click)="mapRecord()" style="margin-right: 10px; background-color: orangered; color: #ffffff;"><span class="material-icons">filter_6</span> Map Record</button>
+                </div> -->
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start center" class="wrapper">
+                <mat-slide-toggle [checked]="showActiveClass" (change)="toggleClass($event)">Show Active Classes</mat-slide-toggle>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" class="wrapper">
+                <div fxLayout="row" fxLayoutAlign="start none" style="overflow: auto; padding: 0 10px 0 10px;">
+                  <div class="mat-elevation-z8 my-table-wrapper">
+                    <table mat-table [dataSource]="dataSource" matSort>
+                      <ng-container matColumnDef="active">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12"> 
+                          <div [ngStyle]="element.active ? {'color': 'green'} : {'color': 'red'}" style="font-weight: 500;">{{element.active ? 'Yes' : 'No'}}</div> 
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="mainteacher">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Teacher </th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12"> {{element.mainteacher}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="class_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Grade </th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12"> {{element.class_name}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="section_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Section </th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12"> {{element.section_name}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="subject_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Subject </th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12"> {{element.subject_name}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="days">
+                        <th mat-header-cell *matHeaderCellDef> Days </th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12"> {{element.days}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="startdate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Range </th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12"> {{element.startdate | date: 'MMM dd, yyyy'}} to {{element.enddate | date: 'MMM dd, yyyy'}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="time">
+                        <th mat-header-cell *matHeaderCellDef> Time </th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12"> {{getTimeAMPM(element.startdate, element.starttime)}} - {{getTimeAMPM(element.enddate, element.endtime)}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef style="width: 80px;">Action</th>
+                        <td mat-cell *matCellDef="let element" class="td-font-12">
+                          <span class="material-icons" (click)="onAddEditRecord('edit', element)">edit</span>
+                          <span class="material-icons" (click)="onDeleteRecord(element)">delete</span>
+                        </td>
+                      </ng-container>
+      
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                      [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" 
+                      (mouseover)="row.hovered = true" 
+                      (mouseout)="row.hovered = false"></tr>
+      
+                      <!-- <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                      [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" 
+                      (click)="row.highlighted = !row.highlighted" 
+                      (mouseover)="row.hovered = true" 
+                      (mouseout)="row.hovered = false"></mat-row> -->
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
+                  </div>            
+                </div>
+              </div>
+              <div style="text-align: center; color: orangered; font-weight: 500; font-size: 12px;">Important: Please click "Map Record" button to map all the records after any information is added/updated/deleted !</div>
+            </div>
+          </div>
+          <!-- <app-footer ></app-footer> -->
+        </div>
+    </mat-drawer-container>
+  </div>
+  
+</div>
+

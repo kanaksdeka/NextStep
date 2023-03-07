@@ -1,0 +1,33 @@
+<div class="main-content">
+  <div class="well-create">
+    <div class="header">
+      <div class="header-text">Notification Form</div>
+      <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+    </div>
+    <div class="content">
+      <form #authForm="ngForm" (ngSubmit)="onSave(authForm)" class="profile-form">
+      <div fxLayout="row" fxLayoutAlign="start none">
+        <div class="request-form" style="margin-top: 20px;">
+          <div class="request-form-content">
+            <app-loading-spinner *ngIf="loader"></app-loading-spinner>
+            <mat-form-field class="request-field" appearance="outline" *ngIf="category === 'S'">
+              <mat-label>Select Teacher</mat-label>
+              <mat-select [(ngModel)]="profileData.teacher" id="teacher" name="teacher" placeholder="Select one" aria-autocomplete="off" required>
+                <mat-option *ngFor="let item of teacherList" [value]="item._id">{{item.profile.fullname}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Message</mat-label>
+              <textarea matInput style="height: 40px;" [(ngModel)]="profileData.message" id="message" name="message" maxlength="100" placeholder="Enter Here" autocomplete="off" required></textarea>
+              <mat-hint align="end">{{profileData.message.length}} / 100</mat-hint>
+            </mat-form-field>
+          </div>
+        </div> 
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center none" style="margin-top: 50px;">
+        <button mat-raised-button color="primary" type="submit">Send Notification</button>
+      </div>
+      </form>
+    </div>
+  </div>    
+</div>

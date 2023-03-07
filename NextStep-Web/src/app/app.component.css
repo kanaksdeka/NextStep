@@ -1,0 +1,9 @@
+.gcp-body {
+    height: 100%;
+    width: 100%;
+}
+.main-content {
+    width: 100%;
+    background-color: #f6f7f9;
+    overflow: auto;
+}

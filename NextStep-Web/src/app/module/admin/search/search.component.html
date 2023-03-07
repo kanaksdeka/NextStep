@@ -1,0 +1,53 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+        <app-header></app-header>
+        <mat-drawer #drawer mode="side" class="sidenav-container">
+            <app-menu-drawer ></app-menu-drawer>
+        </mat-drawer>
+        <div class="main-content">
+          <div class="content-wrap">
+            <div class="header">
+              <div class="header-text">Global Search</div>
+              <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+            </div>
+            <div class="content class-detials">
+              <div fxLayout="row" fxLayoutAlign="center center"  style="padding: 0px 0 10px 0;">
+                <form #authForm="ngForm" (ngSubmit)="onSave(authForm)" style="width: 50%">
+                  <mat-form-field class="request-field" appearance="outline">
+                    <input matInput [(ngModel)]="searchString" id="searchString" name="searchString" placeholder="Search for any document/assignment/note" autocomplete="off">
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+                  </form>
+              </div>
+              <app-loading-spinner *ngIf="loader"></app-loading-spinner>
+              <div style="text-align: center; font-size: 14px; margin-top: 50px;" class="search-result" *ngIf="empty && !loader">
+                  No records found. Please re-phrase your search string again !
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start none" class="search-result" *ngIf="list.length > 0">
+                <mat-list style="width: 100%;">
+                  <h3 mat-subheader>About {{count}} results</h3>
+                  <mat-list-item *ngFor="let item of list;">
+                     <mat-icon mat-list-icon>notes</mat-icon>
+                     <div mat-line class="download-link-document" (click)="onDownload(item.url)">{{item.file}}</div>
+                     <p mat-line> {{item.content}} </p>
+                     <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+               </mat-list>
+              </div>
+            </div>
+          </div>
+          <!-- <app-footer ></app-footer> -->
+        </div>
+    </mat-drawer-container>
+  </div>
+  
+</div>
+

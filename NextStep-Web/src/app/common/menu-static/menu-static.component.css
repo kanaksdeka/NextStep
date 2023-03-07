@@ -1,0 +1,30 @@
+.menu-image {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin: 0px 0px 0px 8px;
+    background-color: var(--white);
+}
+.menu-selector {
+    width: 4px; 
+    height: 20px;
+}
+.menu-is-active {
+    /* background-image: url("../../../assets/icons/menu/menu-selector.svg");
+    background-repeat: no-repeat;
+    object-fit: contain; */
+    background-color: #023861;
+}
+.mat-list-base {
+    padding-top: 0px;
+    height: 42px;
+}
+::ng-deep .mat-list-item-content {
+    padding: 0 !important;
+}
+
+@media only screen and (min-device-width: 1900px) and (max-device-width: 1920px) and (orientation:landscape) {
+    .mat-list-base {
+        height: 52px;
+    }
+}

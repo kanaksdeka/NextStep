@@ -1,0 +1,129 @@
+.menu-static {
+    background-color: #ffffff;
+}
+.sidenav-container {
+    background-color: #ffffff;
+}
+.header-logo {
+    background-color: #023861;
+}
+.menu-static .hamburger {
+    margin: 14px 0px 10px 12px !important;
+    cursor: pointer;
+}
+.content-wrap {
+    width: 100% !important;
+    height: 100%;
+    margin: 0px !important;
+}
+.content-wrap .header {
+    margin-bottom: 0px !important;
+    border-radius: 0px !important;
+    background-color: #ffffff;
+    color: black;
+    opacity: 87;
+    height: 60px;
+    padding: 12px 0 0 20px;
+}
+.main-content {
+    background-color: #EDF4F8;
+    border-left: solid 1px #c1cad4;
+}
+.content-wrap .content {
+    margin: 20px;
+    padding: 15px;
+    border-radius: 3px;
+    box-shadow: 0 0 3px 0 rgb(193 202 212 / 70%);
+    border: solid 1px #c1cad4;
+    min-height: 412px;
+}
+.header-text-sub {
+    font-size: 10px !important;
+}
+.header-text-sub-link {
+    cursor: pointer;
+    color: #023861;
+    font-weight: 500;
+}
+.all-page-selected-date {
+    font-size: 14px;
+    opacity: 87;
+    font-weight: 500;
+    padding: 10px 0 10px 0;
+}
+.well-create .header {
+    background-color: #023861 !important;
+}
+.submit-assignment-weight-wrapper .header, .chat-history-wrapper .header {
+    background-color: #023861 !important;
+}
+::ng-deep .create-new-class .well-create .header {
+    background-color: #023861;
+}
+.mat-raised-button.mat-primary {
+    color: #ffffff;
+    background-color: #373737 !important;
+}
+::ng-deep .well-create .mat-raised-button.mat-primary {
+    color: #ffffff;
+    background-color: #373737 !important;
+}
+.admin-dashbaord-card-box {
+    border: 1px solid #373737;
+}
+.mat-card {
+    border: 1px solid #373737;
+    padding: 12px 10px 10px 14px;
+    background-color: aliceblue;
+}
+.mat-card-avatar {
+    height: 30px;
+    width: 28px;
+    color: #3f51b5;
+    font-size: 22px;
+    line-height: .8;
+}
+.mat-card-header .mat-card-title {
+    font-size: 12px;
+}
+::ng-deep .mat-card-header-text {
+    margin: 0 !important;
+}
+.mat-card-content, .mat-card-subtitle {
+    font-size: 12px;
+    text-align: justify;
+    margin-bottom: 0px;
+}
+.mat-card-header-date {
+    position: absolute;
+    right: 1%;
+    top: 10px;
+    font-size: 12px;
+}
+.mat-card-header-due, .mat-card-header-due-green {
+    position: absolute;
+    right: 200px;
+    top: 10px;
+    font-size: 12px;
+}
+.mat-card-header-assignment-due, .mat-card-header-assignment-due-green {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 12px;
+}
+.mat-card-header-due span, .mat-card-header-assignment-due span {
+    color: red;
+    font-weight: 600;
+}
+.mat-card-header-due-green span, .mat-card-header-assignment-due-green span {
+    color: green;
+    font-weight: 600;
+}
+
+.margin-tb {
+    margin: 20px 0px;
+}
+.margin-b {
+    margin: 0px 0px 10px 0px;
+}

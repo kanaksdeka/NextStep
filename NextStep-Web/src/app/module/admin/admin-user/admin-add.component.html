@@ -1,0 +1,87 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+        <app-header></app-header>
+        <mat-drawer #drawer mode="side" class="sidenav-container">
+            <app-menu-drawer ></app-menu-drawer>
+        </mat-drawer>
+        <div class="main-content">
+          <div class="content-wrap">
+            <div class="header">
+              <div class="header-text">User</div>
+              <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+            </div>
+            <div class="content class-detials">
+              <div fxLayout="row" fxLayoutAlign="center center" class="wrapper">
+                <div class="card-box" fxFlex="50">
+                  <div class="header-inside">Add User(s)</div>
+                  <form #authForm="ngForm" (ngSubmit)="onSave(authForm)">
+                    <div fxLayout="row" fxLayoutAlign="start none">
+                      <div class="request-form">
+                        <div class="request-form-content">
+                          <mat-form-field class="request-field" appearance="outline">
+                            <mat-label>Select User Type</mat-label>
+                            <mat-select matInput [(ngModel)]="dataObject.userType" id="userType" name="userType" required>
+                              <mat-option value="T">Teacher(s)</mat-option>
+                              <mat-option value="S">Student(s)</mat-option>
+                              <mat-option value="Staff">Staff(s)</mat-option>
+                              <mat-option value="Parent">Parent(s)</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'S'">
+                            <mat-label>Semester</mat-label>
+                            <mat-select [(ngModel)]="dataObject.semester" id="semester" name="semester" required>
+                              <mat-option *ngFor="let item of semesterList" [value]="item._id">{{item.semester}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'S'">
+                            <mat-label>Grade</mat-label>
+                            <mat-select matInput [(ngModel)]="dataObject.class" id="class" name="class" required>
+                              <mat-option *ngFor="let item of gradeList" [value]="item._id">{{item.grade}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field class="request-field" appearance="outline" *ngIf="dataObject.userType === 'S'">
+                            <mat-label>Section</mat-label>
+                            <mat-select matInput [(ngModel)]="dataObject.section" id="section" name="section" required>
+                              <mat-option *ngFor="let item of sectionList" [value]="item._id">{{item.section}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field class="request-field-text" appearance="outline">
+                            <mat-label>Enter Email Id(s) separated by comma</mat-label>
+                            <textarea style="height: 100px;" matInput [(ngModel)]="dataObject.email" id="email" name="email" placeholder="Enter Email Id's separated by comma" matTooltipPosition="above" matTooltip="Enter Email Id's separated by comma" autocomplete="off" required></textarea>
+                            <span>Tips: Enter Email Id(s) separated by comma</span>
+                          </mat-form-field>
+                          <!-- <div class="request-field-image">
+                            <mat-label>CSV Upload </mat-label>
+                            <input type="file" [(ngModel)]="dataObject.image" id="image" name="image" placeholder="image" autocomplete="off">
+                          </div> -->
+                        </div>
+                      </div> 
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center none">
+                      <button mat-raised-button style="margin: 70px 0 10px 0;" color="primary" type="submit">Save User's Email Id(s)</button>
+                    </div>
+                  </form>
+                </div>          
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" class="wrapper-message">
+                <div class="card-box-success" fxFlex="50" *ngIf="message === 'succuss'">
+                  User(s) has been saved successfully !
+                </div>
+                <div class="card-box-error" fxFlex="50" *ngIf="message === 'error'">Invalid users: {{errorText}}</div>
+              </div>
+            </div>
+          </div>
+          <!-- <app-footer ></app-footer> -->
+        </div>
+    </mat-drawer-container>
+  </div>
+  
+</div>
+

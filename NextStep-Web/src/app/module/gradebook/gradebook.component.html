@@ -1,0 +1,127 @@
+<div class="gcp-body">
+    <div class="menu-static">
+      <div class="header-logo">
+        <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+      </div>
+      <app-menu-static></app-menu-static>
+    </div>
+    <div class="dashboard-container">
+      <mat-drawer-container autosize>
+          <app-header></app-header>
+          <mat-drawer #drawer mode="side" class="sidenav-container">
+              <app-menu-drawer ></app-menu-drawer>
+          </mat-drawer>
+          <div class="main-content">
+            <div class="content-wrap">
+              <div class="header">
+                <div class="header-text">My Dashboard > {{textString}}Gradebook</div>
+                <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+              </div>
+              <div class="content class-detials">
+                <div class="card-box" *ngIf="category === 'T'">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field class="request-field-student" appearance="outline">
+                            <mat-label>Select Student</mat-label>
+                            <mat-select [(ngModel)]="selectStudent" id="selectStudent" name="selectStudent" placeholder="Select student" (selectionChange)="getGradeDetails($event.value)" autocomplete="off">
+                                <mat-option *ngFor="let item of studentList" [value]="item.studentid">{{item.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="grade-weight-message" *ngIf="gradeArrayList.length === 0 && !load">
+                        Please select the student first and then proceed with the grade.
+                    </div>
+                    <div class="grade-weight-message" *ngIf="gradeArrayList.length === 0 && load">
+                        No grade information is provided for the selected student. Please select a different student and try again.
+                    </div>
+                    <form #authForm="ngForm" (ngSubmit)="onSave(authForm)" class="gradebook" *ngIf="gradeArrayList.length > 0 && load">
+                        <table>
+                            <thead>
+                                <th>Grade Type</th>
+                                <th>Grade Weight</th>
+                                <th>Grade Name</th>
+                                <th>Assignment Name</th>
+                                <th>Compulsary</th>
+                                <th>Compulsary Pass Mark</th>
+                                <th>Assessment Date</th>
+                                <th>Out Of</th>
+                                <th>Best Out Of</th>
+                                <th>Part Of Midterm Grade</th>
+                                <!-- <th></th> -->
+                            </thead>
+                            <tr *ngFor="let item of gradeArrayList; let indexOfelement=index;">
+                                <td>
+                                    <select [(ngModel)]="item.gradetype" id="gradetype" [name]="item.gradetype + '_' + indexOfelement" autocomplete="off">
+                                        <option value="Quiz">Quiz</option>
+                                        <option value="Midterm">Midterm</option>
+                                        <option value="Exam">Exam</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input [(ngModel)]="item.gradeweight" id="gradeweight" [name]="item.gradeweight + '_' + indexOfelement" autocomplete="off">
+                                </td>
+                                <td>
+                                    <input class="grade-name" [(ngModel)]="item.gradename" id="gradename" [name]="item.gradename + '_' + indexOfelement" autocomplete="off">
+                                </td>
+                                <td>
+                                    {{item.assignmentname_s}}
+                                </td>
+                                <td>
+                                    <mat-checkbox [(ngModel)]="item.compulsary" id="compulsary" [name]="item.compulsary + '_' + indexOfelement"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <input [(ngModel)]="item.compulsarypassmark" id="compulsarypassmark" [name]="item.compulsarypassmark + '_' + indexOfelement" autocomplete="off">
+                                </td>
+                                <td>
+                                    <input type="date" [(ngModel)]="item.assessmentdate" id="assessmentdate" [name]="item.assessmentdate + '_' + indexOfelement" autocomplete="off">
+                                </td>
+                                <td>
+                                    <input [(ngModel)]="item.outof" id="outof" [name]="item.outof + '_' + indexOfelement" autocomplete="off">
+                                </td>
+                                <td>
+                                    <input [(ngModel)]="item.bestoutof" id="bestoutof" [name]="item.bestoutof + '_' + indexOfelement" autocomplete="off">
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="item.partofmidtermgrade" id="partofmidtermgrade" [name]="item.partofmidtermgrade + '_' + indexOfelement" autocomplete="off">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <!-- <mat-checkbox [(ngModel)]="item.partofmidtermgrade" id="partofmidtermgrade" [name]="item.partofmidtermgrade + '_' + indexOfelement"></mat-checkbox> -->
+                                </td>
+                                <!-- <td>
+                                    <mat-icon *ngIf="indexOfelement > 0" aria-hidden="false" class="close-cross" (click)="removeRecord(indexOfelement)" aria-label="Example close icon">close</mat-icon>
+                                </td> -->
+                            </tr>
+                        </table>
+                        <!-- <div fxLayout="row" fxLayoutAlign="start none">
+                            <button class="add-new-record" mat-raised-button color="primary" type="button" (click)="addRecord()"><span style="font-size: 18px;" class="material-icons">add</span> Add New</button>
+                        </div> -->
+                        <div fxLayout="row" fxLayoutAlign="center none">
+                            <button style="width: 118px; margin: 20px 0 0 0;" mat-raised-button color="primary" type="submit">Submit Grade</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-box" *ngIf="category === 'S'">
+                    <div class="gradebook-no-data-found" *ngIf="gradeLoad">
+                        Yet to prepare the grade by the teacher
+                    </div>
+                    <div class="gradebook" *ngIf="studentArrayListLength > 0">
+                        <table style="width: 50%;">
+                            <thead>
+                                <th>Subject</th>
+                                <th>Marks</th>
+                            </thead>
+                            <tr *ngFor="let item of studentArrayList">
+                                <td>{{item.subject}}</td>
+                                <td>{{item.marks}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>    
+          </div>
+      </mat-drawer-container>
+    </div>
+  </div>
+  
+  

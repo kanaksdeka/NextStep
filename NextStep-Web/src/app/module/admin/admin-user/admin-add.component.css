@@ -1,0 +1,173 @@
+
+.gcp-body {
+  height: 100%;
+  width: 100%;
+}
+.menu-static {
+  height: 100%; 
+  width: 59px; 
+  background-color: #0631a0;
+}
+.menu-static .hamburger {
+  margin: 16px 0px 10px 12px;
+  cursor: pointer;
+}
+.sidenav-container {
+  background-color: #0631a0;
+  width: 206px;
+}
+::ng-deep .mat-drawer-content {
+  overflow: hidden !important;
+}
+.mat-drawer-container {
+  height: 100%;
+}
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40px;
+  right: 0;
+  font-family: Roboto;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  background-color: #f6f7f9;
+}
+.main-content {
+  width: 100%;
+  height: 90%;
+  position: relative;
+  background-color: #f6f7f9;
+  overflow: auto;
+}
+
+.content-wrap {
+    width: 96%;
+    height: 92%; 
+    margin: 20px;
+}
+  .content-wrap .header {
+    height: 38px;
+    padding: 8px 0px 0px 20px;
+    background-color: #0631a0;
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 1px;
+    border-radius: 2px;
+  }
+  .content-wrap .header-text {
+    float: left;
+  }
+  .content-wrap .close-cross {
+    float: right;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 2px 3px 0 0;
+  }
+  .content-wrap .content {
+    padding: 20px 20px 20px 20px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+    border-left: solid 1px #c1cad4;
+    border-right: solid 1px #c1cad4;
+    border-bottom: solid 1px #c1cad4;
+    min-height: 500px;
+  }
+  .content-wrap .cancel {
+    margin-right: 20px;
+  }
+  
+.class-detials .wrapper {
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+.class-detials .wrapper-message {
+  margin-top: 0px;
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+.wrapper-message .card-box-success {
+  line-height: 1.5;
+  vertical-align: middle;
+  font-size: 14px;
+  color: green;
+  padding: 15px 0 15px 15px;
+}
+.wrapper-message .card-box-error {
+  line-height: 1.5;
+  vertical-align: middle;
+  font-size: 14px;
+  color: red;
+  padding: 5px 0 15px 15px;
+}
+.wrapper-message .card-box-error .success {
+  color: green;
+}
+.class-detials .wrapper .card-box {
+  line-height: 1.5;
+  box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+  border: 1px solid #c1cad4;
+  vertical-align: middle;
+  font-size: 16px;
+  padding: 15px 0 15px 15px;
+}
+.class-detials .right-box {
+  border-radius: 3px;
+  box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+  border: 1px solid #c1cad4;
+  background-color: #ffffff;
+  padding: 15px;
+  margin-top: 10px;
+}
+.class-detials .font-500 {
+  font-weight: 500;
+}
+.class-detials .header-inside {
+  border-bottom: 1px solid #0631a0;
+  margin: 0 15px 20px 0px;
+  font-weight: 500;
+  font-size: 16px;
+}
+.class-detials .header-inside2 {
+  margin: 50px 15px 10px 0px;
+}
+.class-detials .class-stretched-tabs {
+  max-width: 100%;
+}
+.class-detials .request-form {
+  height: 100%;
+  width: 100%;
+}
+.class-detials .request-form-content {
+  height: 100%;
+  width: 100%;    
+}
+.class-detials .request-field-image {
+  height: 50px;
+  font-size: 12px;
+}
+.class-detials .request-field-text {
+  width: 97%;
+  height: 120px;
+  font-size: 12px;
+}
+.class-detials .request-field {
+  width: 97%;
+  height: 50px;
+  font-size: 12px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick { 
+  color: #c1cad4; 
+}
+::ng-deep .success-message {
+  color: #364653;
+  background-color: #d4edda;
+}
+::ng-deep .error-message {
+  color: #f5f6f7;
+  background-color: #d64a84;
+}

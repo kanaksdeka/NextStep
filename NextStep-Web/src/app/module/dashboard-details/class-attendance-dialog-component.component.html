@@ -1,0 +1,16 @@
+<div class="submit-assignment-weight-wrapper">
+  <div class="header">
+    <div class="header-text">Class Attendance</div>
+    <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+  </div>
+  <div class="content-chat-history">
+    <app-loading-spinner *ngIf="attendanceList.length === 0 && loader"></app-loading-spinner>
+    <div *ngIf="attendanceList.length === 0 && !loader">
+      No attendance found for this period !
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start none" style="padding: 2px 10px 0 10px;" *ngFor="let item of attendanceList">
+      <div fxFlex="90">{{item.user}}</div>
+      <div>{{item.isPresent ? 'Present' : 'No'}}</div>
+    </div>
+  </div>
+</div>

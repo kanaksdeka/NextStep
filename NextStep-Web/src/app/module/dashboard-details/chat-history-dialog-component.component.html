@@ -1,0 +1,24 @@
+<div class="submit-assignment-weight-wrapper">
+  <div class="header">
+    <div class="header-text">Chat History</div>
+    <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+  </div>
+  <div class="content-chat-history">
+    <app-loading-spinner  *ngIf="chatHistoryList.length === 0 && loader"></app-loading-spinner>
+    <div *ngIf="chatHistoryList.length === 0 && !loader">
+      No chat history found for this period !
+    </div>
+    <div *ngFor="let item of chatHistoryList">
+      <!-- <span style="color: blue; font-weight: 500;" *ngIf="item.chatText === '$RH;'">{{item.user}}: </span><img *ngIf="item.chatText === '$RH;'" src="assets/icons/hand-raise-icon.jpg" width="15" class="logo">
+      <span style="color: blue; font-weight: 500;" *ngIf="item.chatText !== '$RH;'">{{item.user}}: </span> <span *ngIf="item.chatText !== '$RH;'">{{item.chatText}}</span> -->
+
+      <span style="color: blue; font-weight: 500;" *ngIf="item.chatText === '$raisehand;'">{{item.user}}: </span><img *ngIf="item.chatText === '$raisehand;'" src="assets/icons/hand-raise-icon.jpg" width="15" class="logo">
+      <span style="color: blue; font-weight: 500;" *ngIf="item.chatText === '$emoji-i-applause;'">{{item.user}}: </span><img *ngIf="item.chatText === '$emoji-i-applause;'" src="assets/icons/emoji-i-applause.png" width="15" class="logo">
+      <span style="color: blue; font-weight: 500;" *ngIf="item.chatText === '$emoji-i-emoticon;'">{{item.user}}: </span><img *ngIf="item.chatText === '$emoji-i-emoticon;'" src="assets/icons/emoji-i-emoticon.png" width="15" class="logo">
+      <span style="color: blue; font-weight: 500;" *ngIf="item.chatText === '$emoji-i-ok;'">{{item.user}}: </span><img *ngIf="item.chatText === '$emoji-i-ok;'" src="assets/icons/emoji-i-ok.png" width="15" class="logo">
+      <span style="color: blue; font-weight: 500;" *ngIf="item.chatText === '$emoji-i-bell;'">{{item.user}}: </span><img *ngIf="item.chatText === '$emoji-i-bell;'" src="assets/icons/emoji-i-bell.png" width="15" class="logo">
+      <span style="color: blue; font-weight: 500;" *ngIf="item.chatText === '$emoji-i-star;'">{{item.user}}: </span><img *ngIf="item.chatText === '$emoji-i-star;'" src="assets/icons/emoji-i-star.png" width="25" class="logo">
+      <span style="color: blue; font-weight: 500;" *ngIf="item.chatText !== '$raisehand;' && item.chatText !== '$emoji-i-applause;' && item.chatText !== '$emoji-i-emoticon;' && item.chatText !== '$emoji-i-ok;' && item.chatText !== '$emoji-i-bell;' && item.chatText !== '$emoji-i-star;'">{{item.user}}: </span> <span *ngIf="item.chatText !== '$raisehand;' && item.chatText !== '$emoji-i-applause;' && item.chatText !== '$emoji-i-emoticon;' && item.chatText !== '$emoji-i-ok;' && item.chatText !== '$emoji-i-bell;' && item.chatText !== '$emoji-i-star;'">{{item.chatText}}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+    <div>
+        <div>
+            Kanak chat test
+        </div>
+        <input style="width: 50%;" type="text" [(ngModel)]="inputMsg"> &nbsp;
+        <button class="btn btn-primary" (click)="sendMessage()" type="button">send</button>
+        <img src="assets/icons/hand-raise-icon.jpg" width="30" class="logo" (click)="sendMessageRaiseHand()">
+
+        <div *ngFor="let msg of getMessage()">
+            <img *ngIf="msg.substring(msg.lastIndexOf('chatText') + 9) === '$RH;' " src="assets/icons/hand-raise-icon.jpg" width="30" class="logo">
+            <div *ngIf="msg.substring(msg.lastIndexOf('chatText') + 9) !== '$RH;'">
+                {{msg.substring(msg.lastIndexOf('chatText') + 9)}}
+            </div>
+        </div>
+    </div>
+
+    <div style="border: 1px solid blue; padding: 10px; margin-top: 20px; width: 315px;">
+        <button class="btn btn-primary" (click)="startAttendance()" type="button">Start attendance</button>
+        &nbsp;
+        <button class="btn btn-primary" (click)="stopAttendance()" type="button">Stop attendance</button>
+        <div>
+            attendance Status: {{getAttendance()}}
+        </div>
+    </div>
+
+</div>

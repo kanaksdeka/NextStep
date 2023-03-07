@@ -1,0 +1,71 @@
+<div class="gcp-body">
+    <div class="menu-static">
+      <div class="header-logo">
+        <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+      </div>
+      <app-menu-static></app-menu-static>
+    </div>
+    <div class="dashboard-container">
+      <mat-drawer-container autosize>
+          <app-header></app-header>
+          <mat-drawer #drawer mode="side" class="sidenav-container">
+              <app-menu-drawer ></app-menu-drawer>
+          </mat-drawer>
+          <div class="main-content">
+            <div class="content-wrap">
+              <div class="header">
+                <div class="header-text">My Dashboard > Class Details > Quiz</div>
+                <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+              </div>
+              <div class="content class-detials">
+                <div fxLayout="row" fxLayoutAlign="start none" class="wrapper">
+                  <div style="padding: 0 0 15px 15px;" class="note-list">
+                    <div class="header-inside" fxLayout="row" fxLayoutAlign="start right">
+                      <!-- <div fxFlex="51">{{classDetails.extendedProps.toolbarTitle}}</div> -->
+                      <form #authForm="ngForm" (ngSubmit)="onSearch()" style="margin: -5px 0 -15px 0; width: 100%;">
+                        <mat-form-field class="request-field margin-right">
+                          <input matInput [(ngModel)]="searchdate" id="searchdate" name="searchdate" [matDatepickerFilter]="myFilter" (dateChange)="updateNotes($event)" [matDatepicker]="picker" placeholder="Choose a date">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="request-field search margin-right">
+                          <mat-label>Search</mat-label>
+                          <input matInput [(ngModel)]="search" id="search" name="search" placeholder="Search" autocomplete="off">
+                        </mat-form-field>
+                        <input type="submit" value="submit" style="display: none;"> 
+                        <button mat-stroked-button class="clear-button" (click)="clearSearch()" [disabled]="disabled">Clear</button>
+                      </form>
+                    </div>
+                      <app-loading-spinner *ngIf="loader"></app-loading-spinner>  
+                      <div class="note-list-separator no-record" *ngIf="dataActual.noteList.length === 0 && !loader">
+                        No quiz is prepared for this class !
+                      </div>
+                      <div class="doc-wrapper">
+                        <div class="note-list-separator" *ngFor="let item of dataActual.noteList">
+                          <mat-card class="example-card">
+                            <mat-card-header>
+                              <div mat-card-avatar class="material-icons" *ngIf="item.docType === 'Document'">assignment</div>
+                              <div mat-card-avatar class="material-icons" *ngIf="item.docType === 'Assignment'">note</div>
+                              <div mat-card-avatar class="material-icons" *ngIf="item.docType === 'Classnote'">class</div>
+                              <mat-card-title>{{item.title}}</mat-card-title>
+                              <!-- <div class="mat-card-header-due" *ngIf="item.docType === 'Assignment'"><span>Due on {{formatDate(item.validupto)}}</span>  |</div> -->
+                              <div class="mat-card-header-date">Quiz | {{formatDate(item.date)}}</div>
+                            </mat-card-header>
+                            <mat-card-content>{{item.note}}</mat-card-content>
+                            <mat-card-actions>
+                              <button mat-button (click)="onLink(item)" style="padding-left: 0px; color: #5956F4;">{{item.link}}</button>
+                              <button mat-raised-button type="button" style="float: right; height: 24px; margin: -5px 5px 0px 0;">Details</button>
+                              <button mat-button (click)="onDownload(item)" style="float: right; color: #3f51b5;">{{item.filename}}</button>
+                            </mat-card-actions>
+                          </mat-card>
+                        </div>
+                      </div>
+                  </div>  
+                </div>
+              </div>    
+            </div>      
+          </div>
+      </mat-drawer-container>
+    </div>
+  </div>
+  

@@ -1,0 +1,226 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+      <app-header></app-header>
+      <mat-drawer #drawer mode="side" class="sidenav-container">
+        <app-menu-drawer></app-menu-drawer>
+      </mat-drawer>
+      <div class="main-content">
+        <div class="content-wrap">
+          <div class="header">
+            <div class="header-text">My School At A Glance</div>
+            <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">
+              close</mat-icon>
+          </div>
+          <div class="content class-detials">
+            <iframe [src]="dashboardGlance" title="whiteboard" frameborder="0" width="100%" height="100%"></iframe>
+            <!--div id="glance-dashboard-inner-wrapper">
+              <mat-button-toggle-group name="fontStyle" style="margin: 0 0 3px 2px;" aria-label="Font Style"
+                #group="matButtonToggleGroup" [value]="selectedTab" (change)="onValChange(group.value)">
+                <mat-button-toggle value="students">Students/Overall</mat-button-toggle>
+                <mat-button-toggle value="teachers">Teachers</mat-button-toggle>
+              </mat-button-toggle-group>
+              <div fxLayout="row" id="card-container" fxLayoutAlign="center stretch">
+                <div fxFlex="16.5" class="form-card">
+                  <div fxLayout="column">
+                    <div class="card colored">
+                      <div class="card-title">
+                        Select Semester
+                      </div>
+                      <div class="card-content">
+                        <mat-select [(ngModel)]="classData.semester" id="semester" name="semester"
+                          [disabled]="disabledFlag" required>
+                          <mat-option *ngFor="let item of semesterList" [value]="item._id">{{item.semester}}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+                    </div>
+                    <div class="card colored">
+                      <div class="card-title">
+                        Select Class
+                      </div>
+                      <div class="card-content">
+                        <mat-select [(ngModel)]="classData.class" id="semester" name="semester"
+                          [disabled]="disabledFlag" required>
+                          <mat-option *ngFor="let item of sectionList" [value]="item._id">{{item.section}}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+                    </div>
+                    <div class="card colored">
+                      <div class="card-title">
+                        Select Section
+                      </div>
+                      <div class="card-content">
+                        <mat-select [(ngModel)]="classData.section" id="semester" name="semester"
+                          [disabled]="disabledFlag" required>
+                          <mat-option *ngFor="let item of sectionList" [value]="item._id">{{item.section}}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="16.8" class="form-card">
+                  <div fxLayout="column">
+                    <div class="card">
+                      <div class="card-title">
+                        User Count
+                      </div>
+                      <div class="card-content user-data align-right">
+                        6
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-title">
+                        Attendance
+                      </div>
+                      <div class="card-content user-data">
+                        <span>100.00%</span>
+                        <span class="small-text">21/21</span>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-title">
+                        Average Marks
+                      </div>
+                      <div class="card-content user-data align-right">
+                        58.00
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title">Average Subject Score                   
+                  </div>
+                  <div class="card-content">
+                    <div style="display: block;">
+                      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                        [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                      </canvas>
+                      <div class="align-center" style="color: rgb(68, 68, 68); margin-top: 5px;">CLASS-5-PHYSICS</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title">Student Distribution</div>
+                  <div class="card-content">
+                    <div style="display: block;">
+                      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                        [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                      </canvas>
+                      <div class="align-center" style="color: rgb(68, 68, 68); margin-top: 5px;">2021-FIRST-QUARTER
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout="row" id="card-container" fxLayoutAlign="center stretch">
+                <div class="card">
+                  <div class="card-title">Semester Grade Distributions</div>
+                  <div class="card-content">
+                    <div style="display: block;">
+                      <canvas baseChart width="100" height="60" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                        [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                      </canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="card top-attendees">
+                  <div class="card-title">Top Attendees</div>
+                  <div class="card-content">
+                    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                      <ng-container matColumnDef="semester">
+                        <th mat-header-cell *matHeaderCellDef> Semester </th>
+                        <td mat-cell *matCellDef="let element"> {{element.semester_name}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="grade">
+                        <th mat-header-cell *matHeaderCellDef> Grade </th>
+                        <td mat-cell *matCellDef="let element"> {{element.class_name}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="section">
+                        <th mat-header-cell *matHeaderCellDef> Section </th>
+                        <td mat-cell *matCellDef="let element"> {{element.section_name}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                      </ng-container>
+
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title">Attendance Distribution</div>
+                  <div class="card-content">
+                    <div style="display: block;">
+                      <canvas baseChart width="100" height="60" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                        [chartType]="doughnutChartType">
+                      </canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout="row" id="card-container" fxLayoutAlign="center stretch">
+                <div class="card">
+                  <div class="card-title">Attendance Timeline</div>
+                  <div class="card-content">
+                    <div style="display: block;">
+                      <canvas baseChart height="100" width="250" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" [plugins]="lineChartPlugins">
+                      </canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title">Assignment Submission Type</div>
+                  <div class="card-content">
+                    <div style="display: block;">
+                      <canvas baseChart height="100" width="250" [datasets]="barChartData" [labels]="barChartLabels"
+                        [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                        [chartType]="barChartType">
+                      </canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout="row" id="card-container" fxLayoutAlign="center stretch">
+                <div class="card">
+                  <div class="card-title">Assignment Submission Timeline</div>
+                  <div class="card-content">
+                    <div style="display: block;">
+                      <canvas baseChart height="100" width="250" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" [plugins]="lineChartPlugins">
+                      </canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title">Assignment Submissions</div>
+                  <div class="card-content">
+                    <table><thead><tr><td>Assignment Title</td><td>Date</td><td>Submission Count</td></tr></thead><tbody><tr><td>Untitled Assignment</td><td>Tue Jan 12 2021</td><td>1</td></tr><tr><td>Untitled Assignment</td><td>Mon Jan 04 2021</td><td>2</td></tr></tbody></table>
+                  </div>
+                </div>
+              </div>
+            </div-->
+          </div>
+        </div>
+        <!-- <app-footer ></app-footer> -->
+      </div>
+    </mat-drawer-container>
+  </div>
+
+</div>

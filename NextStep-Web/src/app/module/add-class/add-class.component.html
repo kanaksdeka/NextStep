@@ -1,0 +1,95 @@
+<div class="main-content">
+  <div class="well-create">
+    <div class="header">
+      <div class="header-text">Class Details</div>
+      <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+    </div>
+    <div class="content">
+      <form #authForm="ngForm" (ngSubmit)="onSave(authForm)">
+      <div fxLayout="row" fxLayoutAlign="start none">
+        <div class="request-form">
+          <div class="request-form-content">
+            <div fxLayout="row" fxLayoutAlign="start none" class="div-separator">
+              <div fxFlex="30">Grade:</div><div class="bold">{{classData.cData.class}}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start none" class="div-separator">
+              <div fxFlex="30">Section:</div><div class="bold">{{classData.cData.section}}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start none" class="div-separator">
+              <div fxFlex="30">Semester:</div><div class="bold">{{classData.cData.semester}}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start none" class="div-separator">
+              <div fxFlex="30">Subject:</div><div class="bold">{{classData.cData.subject}}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start none" class="div-separator">
+              <div fxFlex="30">Days:</div><div class="bold">{{parseDays(classData.cData.days)}}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start none" class="div-separator">
+              <div fxFlex="30">Date Range:</div><div class="bold">{{classData.cData.dateFrom | date: 'MMM dd, yyyy'}} to {{classData.cData.dateTo | date: 'MMM dd, yyyy'}}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start none" class="div-separator">
+              <div fxFlex="30">Time:</div><div class="bold">{{classData.cData.from}} - {{classData.cData.to}}</div>
+            </div>
+            <!-- <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Grade</mat-label>
+              <mat-select [(ngModel)]="classData.cData.class" id="class" name="class" disabled required>
+                <mat-option value="V">Grade V</mat-option>
+                <mat-option value="IV">Grade IV</mat-option>
+                <mat-option value="III">Grade III</mat-option>
+                <mat-option value="II">Grade II</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Section</mat-label>
+              <mat-select [(ngModel)]="classData.cData.section" id="section" name="section" disabled required>
+                <mat-option value="Sec A">Sec A</mat-option>
+                <mat-option value="Sec B">Sec B</mat-option>
+                <mat-option value="Sec C">Sec C</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Subject</mat-label>
+              <mat-select [(ngModel)]="classData.cData.subject" id="subject" name="subject" disabled required>
+                <mat-option value="Mathematics">Mathematics</mat-option>
+                <mat-option value="Physics">Physics</mat-option>
+                <mat-option value="Social Science">Social Science</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Days</mat-label>
+              <mat-select multiple [(ngModel)]="classData.cData.days" id="days" name="days" disabled placeholder="Enter select days" autocomplete="off" required>
+                <mat-option value="Monday">Monday</mat-option>
+                <mat-option value="Tuesday">Tuesday</mat-option>
+                <mat-option value="Wednesday">Wednesday</mat-option>
+                <mat-option value="Thursday">Thursday</mat-option>
+                <mat-option value="Friday">Friday</mat-option>
+                <mat-option value="Saturday">Saturday</mat-option>
+                <mat-option value="Sunday">Sunday</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field-date" appearance="outline">
+              <mat-label>Date From</mat-label>
+              <input matInput type="date" [(ngModel)]="classData.cData.dateFrom" [min]="todayDate" disabled id="dateFrom" name="dateFrom" placeholder="Enter days separated by comma" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="request-field-date" appearance="outline">
+              <mat-label>Date To</mat-label>
+              <input matInput type="date" [(ngModel)]="classData.cData.dateTo" [min]="todayDate" id="dateTo" disabled name="dateTo" placeholder="Enter days separated by comma" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="request-field-time" appearance="outline">
+              <mat-label>Time From</mat-label>
+              <input matInput type="time" [(ngModel)]="classData.cData.from" id="from" name="from" disabled placeholder="Enter days separated by comma" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field class="request-field-time" appearance="outline">
+              <mat-label>Time To</mat-label>
+              <input matInput type="time" [(ngModel)]="classData.cData.to" id="to" name="to" disabled placeholder="Enter days separated by comma" autocomplete="off" required>
+            </mat-form-field> -->
+          </div>
+        </div> 
+      </div>
+      <!-- <div fxLayout="row" fxLayoutAlign="center none">
+        <button mat-raised-button color="primary" type="submit">{{textButton}} Class</button>
+      </div> -->
+      </form>
+    </div>
+  </div>    
+</div>

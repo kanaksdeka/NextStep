@@ -1,0 +1,30 @@
+<div class="geochempro-login">
+  <div class="login-content">
+    <div class="form-container">
+      <div class="text">Register | Online School Management</div>
+      <form #authForm="ngForm">
+        <mat-form-field class="login-full-width" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput [formControl]="username" name="name" [(ngModel)]="loginData.username" readonly>
+          <mat-error *ngIf="username.invalid">This is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="login-full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput [formControl]="password" type="password" name="password" [(ngModel)]="loginData.password" minlength="8">
+          <mat-error *ngIf="password.invalid">Password must contain at least 8 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class="login-full-width" appearance="outline">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput [formControl]="cpassword" type="password" name="cpassword" [(ngModel)]="loginData.cpassword" minlength="8">
+          <mat-error *ngIf="cpassword.invalid">Password must contain at least 8 characters</mat-error>
+        </mat-form-field>
+        <div class="password-mismatch" *ngIf="loginData.credential">Password mismatch. Please enter same Password !</div>
+        <div style="margin-top: 30px;" fxLayout="row" fxLayoutAlign="center none">
+          <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="loginData.password.length < 8 || loginData.cpassword.length < 8">Register</button>
+        </div>
+      </form>  
+    </div>
+  </div>
+  <div class="footer-text">Online School Management Platform  |  Copyright © 2020</div>
+</div>
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>

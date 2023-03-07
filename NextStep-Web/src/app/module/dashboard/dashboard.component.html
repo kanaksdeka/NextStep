@@ -1,0 +1,69 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+        <app-header></app-header>
+        <mat-drawer #drawer mode="side" class="sidenav-container">
+            <app-menu-drawer ></app-menu-drawer>
+        </mat-drawer>
+        <div class="main-content">
+          <div class="content-wrap">
+            <div class="header">
+              <div class="header-text">
+                <div>Dashboard</div>
+                <div class="header-text-sub"><span class="header-text-sub-link">Home</span></div>
+              </div>
+              <!-- <i class="material-icons close" (click)="onCancelClick()"> clear </i> -->
+            </div>
+            <!-- <iframe width="100%" height="100%" frameBorder="0" src="http://35.164.171.15:5001/boards/trueleap"></iframe> -->
+            <div class="content">
+              <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 9%;" *ngIf="spinnerCall && classList.length === 0">
+                <!-- <div fxLayout="row" fxLayoutAlign="center center" class="card-box" (click)="onCreateNewClass()">
+                  <span class="material-icons" style="font-size: 100px;">create_new_folder</span> Click Here To Create Your First Class
+                </div> -->
+                <app-loading-spinner></app-loading-spinner>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" class="card-box" *ngIf="!spinnerCall && classList.length === 0">
+                No class has been assigned as of now !
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start none" *ngIf="!spinnerCall && classList.length > 0">
+                <div style="margin-right: 20px;">
+                  <!-- <div fxLayout="row" fxLayoutAlign="start none" style="padding: 0px 0 10px 0;">
+                    <button mat-raised-button color="primary" type="button" (click)="onCreateNewClass()"><span class="material-icons">create_new_folder</span> Create New Class</button>
+                  </div> -->
+                  <div fxLayout="column" fxLayoutAlign="start none" class="class-list-wrapper">
+                    <div *ngFor="let item of classList">
+                      <app-class-box [classData]="item" [classAction]="actionFlag" (actionEvent)="onActionClick($event)"></app-class-box>
+                    </div>
+                  </div>
+                </div>
+                <div class="my-calendar">
+                  <full-calendar
+                    defaultView="dayGridMonth"
+                    [plugins]="calendarPlugins"
+                    [events]="calendarEvents"
+                    (eventClick)="eventClicked($event)"
+                    (clickButton)="clickButton($event.detail)"
+                    (eventMouseEnter)="eventHover($event)"
+                    eventLimit="true"
+                  ></full-calendar>
+                  <!-- <full-calendar
+                    defaultView="dayGridMonth"
+                    [plugins]="calendarPlugins"
+                    [events]="calendarEvents"
+                    (eventClick)="eventClicked($event)"
+                    (dateClick)="dateClick($event)"
+                  ></full-calendar> -->
+                </div>
+              </div>
+            </div>
+          </div>      
+        </div>
+    </mat-drawer-container>
+  </div>
+</div>

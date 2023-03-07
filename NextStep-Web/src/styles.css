@@ -1,0 +1,97 @@
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+
+html, body {
+  min-width: 0 !important;
+}
+
+#zmmtg-root {
+  display: none;
+}
+
+#zmmtg-root, .meeting-client, .meeting-client-inner {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+#wc-footer {
+  bottom: auto !important;
+  width: 100% !important;
+  position: relative !important;
+}
+
+#dialog-join {
+  width: 100% !important;
+}
+
+#content_container {
+  width: 100% !important;
+}
+
+#sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {
+  height: auto !important;
+  width: 100% !important;
+}
+
+.undefined .footer-button__button .ax-outline {
+  display: none !important;
+}
+
+.suspension-window {
+  transform: translate(-444px, 10px) !important;
+}
+
+.meeting-client {
+  position: relative !important;
+  width: 100% !important;;
+  height: auto !important;;
+}
+
+.meeting-client-inner {
+  position: relative !important;
+}
+
+html, body {
+  overflow: auto !important;
+}
+
+#dialog-join {
+  width: 100% !important;
+  position: absolute !important;
+  top: 0px !important;
+  bottom: auto !important;
+  z-index: 100;
+}
+
+.full-screen-widget__icon {
+  display: none;
+}
+
+#wc-loading {
+  width: 100% !important;
+  height: auto !important;
+  position: relative !important;
+}
+.meeting-app {
+  height: auto !important;
+  width: 100% !important;
+  /* border: 3px solid red; */
+}
+
+#wc-container-left {
+  width: 100% !important;
+  height: auto !important;
+}
+
+#dialog-invite {
+  display: none;
+}
+
+#wc-container-right {
+  width: 100% !important;
+  max-height: 250px !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

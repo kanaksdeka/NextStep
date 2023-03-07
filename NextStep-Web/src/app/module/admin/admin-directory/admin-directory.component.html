@@ -1,0 +1,60 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+      <app-header></app-header>
+      <mat-drawer #drawer mode="side" class="sidenav-container">
+        <app-menu-drawer></app-menu-drawer>
+      </mat-drawer>
+      <div class="main-content">
+        <div class="content-wrap">
+          <div class="header">
+            <div class="header-text">Directory of Class</div>
+            <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="close icon">close
+            </mat-icon>
+          </div>
+          <div class="content directory">
+            <form class="wrapper" #filterForm="ngForm">
+              <div fxLayout="row" fxLayoutAlign="start none">
+                <div class="request-forms" style="width: 30%;">
+                  <mat-form-field appearance="outline" class="request-field">
+                    <mat-label>Select Teacher</mat-label>
+                    <mat-select [(ngModel)]="teacherid" id="teacherid" name="teacherid" (selectionChange)="getTeacherName(teacherid)" required>
+                      <mat-option *ngFor="let item of teacherList" [value]="item._id">{{item.profile.fullname}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+
+            <div fxLayout="row" fxLayoutAlign="start none">
+              <app-loading-spinner *ngIf="loader"></app-loading-spinner>
+              <div class="my-calendar">
+                <full-calendar 
+                  defaultView="dayGridMonth" 
+                  [plugins]="calendarPlugins" 
+                  [events]="calendarEvents"
+                  (eventClick)="eventClicked($event)"
+                  (eventMouseEnter)="eventHover($event)"
+                  eventLimit="true">
+                </full-calendar>
+                <!-- <full-calendar
+                    defaultView="dayGridMonth"
+                    [plugins]="calendarPlugins"
+                    [events]="calendarEvents"
+                    (eventClick)="eventClicked($event)"
+                    (dateClick)="dateClick($event)"
+                  ></full-calendar> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </div>
+</div>

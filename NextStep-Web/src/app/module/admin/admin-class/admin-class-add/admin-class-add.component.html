@@ -1,0 +1,80 @@
+<div class="main-content">
+  <div class="well-create">
+    <div class="header">
+      <div class="header-text">{{(textButton === 'Update') ? 'Edit Class' : 'Add New Class'}}</div>
+      <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+    </div>
+    <div class="content">
+      <form #authForm="ngForm" (ngSubmit)="onSave(authForm)">
+      <div fxLayout="row" fxLayoutAlign="start none">
+        <div class="request-form">
+          <div class="request-form-content">
+            <app-loading-spinner *ngIf="loader"></app-loading-spinner>
+            <mat-form-field *ngIf="!editStudent" class="request-field" appearance="outline">
+              <mat-label>Teacher</mat-label>
+              <mat-select [(ngModel)]="classData.teacherid" id="teacherid" name="teacherid" (selectionChange)="getTeacherName(classData.teacherid)" required>
+                <mat-option *ngFor="let item of teacherList" [value]="item._id">{{item.profile.fullname}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Semester</mat-label>
+              <mat-select [(ngModel)]="classData.semester" id="semester" name="semester" [disabled]="disabledFlag" required>
+                <mat-option *ngFor="let item of semesterList" [value]="item._id">{{item.semester}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Grade</mat-label>
+              <mat-select [(ngModel)]="classData.class" id="class" name="class" [disabled]="disabledFlag" required>
+                <mat-option *ngFor="let item of gradeList" [value]="item._id">{{item.grade}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Section</mat-label>
+              <mat-select [(ngModel)]="classData.section" id="section" name="section" [disabled]="disabledFlag" required>
+                <mat-option *ngFor="let item of sectionList" [value]="item._id">{{item.section}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="request-field" appearance="outline">
+              <mat-label>Subject</mat-label>
+              <mat-select [(ngModel)]="classData.subject" id="subject" name="subject" [disabled]="disabledFlag" required>
+                <mat-option *ngFor="let item of subjectList" [value]="item._id">{{item.subject}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="!editStudent" class="request-field" appearance="outline">
+              <mat-label>Days</mat-label>
+              <mat-select multiple [(ngModel)]="classData.days" id="days" name="days" placeholder="Enter select days" autocomplete="off" [disabled]="disabledFlag" required>
+                <mat-option value="Monday">Monday</mat-option>
+                <mat-option value="Tuesday">Tuesday</mat-option>
+                <mat-option value="Wednesday">Wednesday</mat-option>
+                <mat-option value="Thursday">Thursday</mat-option>
+                <mat-option value="Friday">Friday</mat-option>
+                <mat-option value="Saturday">Saturday</mat-option>
+                <mat-option value="Sunday">Sunday</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="!editStudent" class="request-field-date" appearance="outline">
+              <mat-label>Date From</mat-label>
+              <input matInput type="date" [(ngModel)]="classData.dateFrom" [min]="todayDate" id="dateFrom" name="dateFrom" placeholder="Enter days separated by comma" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field *ngIf="!editStudent" class="request-field-date" appearance="outline">
+              <mat-label>Date To</mat-label>
+              <input matInput type="date" [(ngModel)]="classData.dateTo" [min]="todayDate" id="dateTo" name="dateTo" placeholder="Enter days separated by comma" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field *ngIf="!editStudent" class="request-field-time" appearance="outline">
+              <mat-label>Time From</mat-label>
+              <input matInput type="time" [(ngModel)]="classData.from" id="from" name="from" placeholder="Enter days separated by comma" autocomplete="off" required>
+            </mat-form-field>
+            <mat-form-field *ngIf="!editStudent" class="request-field-time" appearance="outline">
+              <mat-label>Time To</mat-label>
+              <input matInput type="time" [(ngModel)]="classData.to" id="to" name="to" placeholder="Enter days separated by comma" autocomplete="off" required>
+            </mat-form-field>
+          </div>
+        </div> 
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center none">
+        <button mat-raised-button color="primary" type="submit">{{textButton}} Class</button>
+      </div>
+      </form>
+    </div>
+  </div>    
+</div>

@@ -1,0 +1,11 @@
+<mat-card class="admin-dashboard-card" (click)="onCardClick(cardData)">
+  <mat-card-header>
+    <mat-card-title class="heade">{{cardData.displayName}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-divider class="admin-dashboard-card-divider"></mat-divider>
+  </mat-card-content>
+  <div class="card-img-container">
+    <mat-icon [svgIcon]="iconLabel" class="group-image">user</mat-icon>
+  </div>
+</mat-card>

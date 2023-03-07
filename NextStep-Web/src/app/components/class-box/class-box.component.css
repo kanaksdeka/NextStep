@@ -1,0 +1,31 @@
+.card-box {
+    width: 280px;
+    line-height: 1.8;
+    border-radius: 3px;
+    box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+    border: 1px solid #c1cad4;
+    background-color: #ffffff;
+    vertical-align: middle;
+    margin: 0 0 10px 0;
+    font-size: 12px;
+  }
+  .active-box {
+    border: 1px solid #0631A0;
+  }
+  .card-box button {
+    width: 108px;
+    margin-bottom: 2px;
+  }
+  .font-500 {
+    font-weight: 400;
+  }
+.card-box button {
+  font-size: 13px;
+  padding: 0;
+  height: 34px;
+  font-size: 12px;
+  width: 100px;
+}
+.selected-class {
+  border: 2px solid #b79f60;
+}

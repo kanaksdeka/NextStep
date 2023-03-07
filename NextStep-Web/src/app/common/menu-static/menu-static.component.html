@@ -1,0 +1,6 @@
+<mat-list *ngFor="let nav of menuList">
+  <mat-list-item>
+    <div class="menu-selector" routerLink="{{nav.route}}" routerLinkActive="menu-is-active"></div>
+    <img src='{{ "assets/new/" + nav.imageName + ".svg" }}' class="menu-image">
+  </mat-list-item>
+</mat-list>

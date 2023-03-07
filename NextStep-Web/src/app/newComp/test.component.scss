@@ -1,0 +1,19 @@
+.small-size {
+    width: 400px;
+    min-height: 285px;
+}
+
+.big-size {
+    width: 100%;
+    min-height: 30%;
+}
+
+.button {
+  background-color: #1f2894;
+  border: 1px solid #7373cc; 
+  color: white;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}

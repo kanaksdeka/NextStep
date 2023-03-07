@@ -1,0 +1,234 @@
+
+.gcp-body {
+    height: 100%;
+    width: 100%;
+  }
+  .menu-static {
+    height: 100%; 
+    width: 59px; 
+    background-color: #0631a0;
+  }
+  .menu-static .hamburger {
+    margin: 16px 0px 10px 12px;
+    cursor: pointer;
+  }
+  .sidenav-container {
+    background-color: #0631a0;
+    width: 206px;
+  }
+  ::ng-deep .mat-drawer-content {
+    overflow: hidden !important;
+  }
+  .mat-drawer-container {
+    height: 100%;
+  }
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px;
+    right: 0;
+    font-family: Roboto;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    background-color: #f6f7f9;
+  }
+  .main-content {
+    width: 100%;
+    height: 90%;
+    position: relative;
+    background-color: #f6f7f9;
+    overflow: auto;
+  }
+  .content-wrap {
+      width: 96%;
+      height: 100%; 
+      margin: 20px;
+  }
+    .content-wrap .header {
+      height: 38px;
+      padding: 8px 0px 0px 20px;
+      background-color: #0631a0;
+      font-size: 16px;
+      color: #ffffff;
+      margin-bottom: 1px;
+      border-radius: 2px;
+    }
+    .content-wrap .header-text {
+      float: left;
+    }
+    .content-wrap .close-cross {
+      float: right;
+      font-size: 18px;
+      cursor: pointer;
+      margin: 2px 3px 0 0;
+    }
+    .content-wrap .content {
+      padding: 20px 20px 20px 20px;
+      background-color: #ffffff;
+      border-radius: 3px;
+      box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+      border-left: solid 1px #c1cad4;
+      border-right: solid 1px #c1cad4;
+      border-bottom: solid 1px #c1cad4;
+      min-height: 412px;
+    }
+    .content-wrap .cancel {
+      margin-right: 20px;
+    }
+    .content-wrap .mat-raised-button.mat-primary {
+      color: #ffffff;
+      background-color:#0abf21;
+    }
+    /* .content-wrap .mat-raised-button[disabled] {
+      background-color: grey !important;
+    } */
+  .class-detials .wrapper {
+    border-radius: 3px;
+    box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+    border: 1px solid #c1cad4;
+    background-color: #ffffff;
+  }
+  .class-detials .card-box {
+    line-height: 1.5;
+    border-radius: 3px;
+    /* box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+    border: 1px solid #c1cad4; */
+    background-color: #ffffff;
+    padding: 15px 15px 15px 15px;
+  }
+  .class-detials .right-box {
+    border-radius: 3px;
+    box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+    border: 1px solid #c1cad4;
+    background-color: #ffffff;
+    padding: 15px;
+    margin-top: 10px;
+  }
+  .class-detials .font-500 {
+    font-weight: 500;
+  }
+  .class-detials .header-inside {
+    border-bottom: 1px solid #c1cad4;
+    margin: 0 15px 10px 0px;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .class-detials .header-inside2 {
+    margin: 35px 15px 10px 0px;
+  }
+  .card-box button {
+    margin-bottom: 5px;
+    width: 180px;
+    text-align: left;
+  }
+  .class-detials .class-stretched-tabs {
+    max-width: 100%;
+  }
+  .class-detials .request-form {
+    height: 100%;
+    width: 100%;
+  }
+  form {
+      margin-top: 30px;
+  }
+  .content-wrapper .col {
+      padding: 0 5px 0 5px;
+  }
+  .content-header {
+    font-size: 12px; 
+    font-weight: 600;
+  }
+  .content-header .col {
+    padding: 0 5px 0 5px;
+  }
+  .class-detials .request-field {
+    width: 50%;
+    height: 50px;
+    font-size: 12px;
+  }
+  .content-wrapper input[type="date"] {
+    line-height: 12px;
+  }
+  /* .content-wrapper .col-first-checkbox {
+    padding: 1% 0 0 3%;
+  }
+  .content-wrapper .col-checkbox {
+    padding: 1% 0 0 1%;
+  } */
+  .gradebook-no-data-found {
+    box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+    border: 1px solid #c1cad4;
+    font-size: 14px;
+    padding: 50px 0 50px 0;
+    text-align: center;
+  }
+  .gradebook table {
+    box-shadow: 0 0 3px 0 rgba(193, 202, 212, 0.7);
+    border: 1px solid #c1cad4;
+    font-size: 12px;
+  }
+  .gradebook table th {
+    border-bottom: 1px solid #c1cad4;
+    border-right: 1px solid #c1cad4;
+    padding: 0 5px 0 5px;
+    text-align: center;
+  }
+  .gradebook table td {
+    border-right: 1px solid #c1cad4;
+    padding: 5px;
+    text-align: center;
+  } 
+  .gradebook table input {
+    width: 50%;
+    height: 20px;
+  }
+  .gradebook table .grade-name {
+    width: 100%;
+  }
+  .gradebook table input[type="date"] {
+    width: 90%;
+  }
+  .gradebook table select {
+    width: 100px;
+  }
+  .class-detials .add-new-record {
+    width: 85px;
+    background-color: #f9f8f9 !important;
+    color: #322482 !important;
+    line-height: 20px;
+    padding: 0 4px;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .class-detials .request-field-student {
+    width: 30%;
+    height: 40px;
+    font-size: 12px;
+  }
+  .note-list .header-inside {
+    border-bottom: 1px solid #0631a0;
+    margin: 0 15px 10px 0px;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    padding-bottom: 5px;
+  }
+  .grade-weight-message {
+    margin: 50px 0 50px 0;
+    text-align: center;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick { 
+    color: #c1cad4; 
+  }
+  ::ng-deep .success-message {
+    color: #364653;
+    background-color: #d4edda;
+  }
+  ::ng-deep .error-message {
+    color: #f5f6f7;
+    background-color: #d64a84;
+  }

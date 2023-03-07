@@ -1,0 +1,674 @@
+<div class="gcp-body">
+  <div class="menu-static">
+    <div class="header-logo">
+      <img
+        (click)="drawer.toggle()"
+        src="assets/icons/hamburger.svg"
+        class="hamburger"
+      />
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container">
+    <mat-drawer-container autosize>
+      <app-header></app-header>
+      <mat-drawer #drawer mode="side" class="sidenav-container">
+        <app-menu-drawer></app-menu-drawer>
+      </mat-drawer>
+      <div class="main-content">
+        <div class="content-wrap">
+          <div class="header">
+            <div class="header-text">
+              <div>Class Details</div>
+              <div class="header-text-sub" (click)="onCancelClick()">
+                <span class="header-text-sub-link">Home</span> > Class Details
+              </div>
+            </div>
+            <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+            <button
+              mat-raised-button
+              type="button"
+              class="launch-class-button"
+              style="float: right"
+              (click)="onClickLaunch()"
+            >
+              <span class="material-icons">launch</span> Launch Class
+            </button>
+          </div>
+          <div class="content class-detials">
+            <div fxLayout="row" fxLayoutAlign="start none" class="wrapper">
+              <div class="card-box" fxFlex="23">
+                <div class="header-inside">
+                  {{ classDetails.extendedProps.subject_name }}
+                </div>
+                <div class="header-inside-subc">
+                  Class: {{ classDetails.extendedProps.grade_name }}
+                  {{ classDetails.extendedProps.section_name }}
+                </div>
+                <div class="header-inside-subc">
+                  Semester: {{ classDetails.extendedProps.semester_name }}
+                </div>
+                <div class="header-inside-subc">
+                  Time: {{ classDetails.extendedProps.times }}
+                </div>
+                <div class="header-inside-subc">
+                  Days: {{ parseDays(classDetails.extendedProps.days) }}
+                </div>
+                <div class="header-inside header-inside2">My Actions</div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'T'"
+                  (click)="goTo('student')"
+                >
+                  <div class="action-list-my-common action-roster">Roster</div>
+                </div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'T'"
+                  (click)="goTo('document')"
+                >
+                  <div class="action-list-my-common action-class-document">
+                    Class Document
+                  </div>
+                </div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'T'"
+                  (click)="goTo('checkassignment')"
+                >
+                  <div class="action-list-my-common action-check-assignment">
+                    Check Assignment
+                  </div>
+                </div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'S'"
+                  (click)="goTo('checkassignment')"
+                >
+                  <div class="action-list-my-common action-check-assignment">
+                    My Assignment
+                  </div>
+                </div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'S'"
+                  (click)="goTo('note')"
+                >
+                  <div class="action-list-my-common action-my-notes">
+                    My Notes
+                  </div>
+                </div>
+                <div class="action-list-my" (click)="goTo('quiz')">
+                  <div class="action-list-my-common action-quiz">Quiz</div>
+                </div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'T'"
+                  (click)="goTo('zoom')"
+                >
+                  <div class="action-list-my-common action-zoom">Zoom</div>
+                </div>
+                <!-- <div
+                  class="action-list-my"
+                  *ngIf="category === 'T'"
+                  (click)="goTo('jitsi')"
+                >
+                  <div class="action-list-my-common action-zoom">Jitsi</div>
+                </div> -->
+                <div class="action-list-my" (click)="goTo('chathistory')">
+                  <div class="action-list-my-common action-chat-history">
+                    Chat History
+                  </div>
+                </div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'T'"
+                  (click)="goTo('classattendance')"
+                >
+                  <div class="action-list-my-common action-class-attendance">
+                    Class Attendance
+                  </div>
+                </div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'T'"
+                  (click)="goTo('gradebook')"
+                >
+                  <div class="action-list-my-common action-gradebook">
+                    Grade Book
+                  </div>
+                </div>
+                <div
+                  class="action-list-my"
+                  *ngIf="category === 'S'"
+                  (click)="goTo('gradebook')"
+                >
+                  <div class="action-list-my-common action-gradebook">
+                    My Book
+                  </div>
+                </div>
+                <div class="action-list-my" (click)="goTo('notify')">
+                  <div class="action-list-my-common action-send-notification">
+                    Send Notification
+                  </div>
+                </div>
+                <div class="action-list-my" (click)="goTo('search')">
+                  <div class="action-list-my-common action-global-search">
+                    Global Search
+                  </div>
+                </div>
+              </div>
+              <div style="padding: 0 15px 15px 15px" fxFlex="77">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <div fxFlex="50" class="all-page-selected-date">
+                    {{ selectedDate }}
+                  </div>
+                  <div
+                    fxFlex="50"
+                    fxLayout="row"
+                    class="btn-generate-new-wb"
+                    fxLayoutAlign="end center"
+                  >
+                    <!-- <button
+                      mat-raised-button
+                      color="primary"
+                      (click)="generateNewWhiteboard()"
+                    >
+                      Genarate New Whiteboard
+                    </button> -->
+                  </div>
+                </div>
+                <div *ngIf="category === 'T'">
+                  <form
+                    #authFormStream="ngForm"
+                    (ngSubmit)="onSaveStream(authFormStream)"
+                    style="font-size: 12px;"
+                  >
+                  <mat-radio-group
+                    matInput
+                    [(ngModel)]="dataObject.videoType"
+                    aria-label="Select an option"
+                    id="videoType"
+                    name="videoType"
+                    (change)="radioChange()"
+                    >
+                    <mat-radio-button value="zoom">Zoom</mat-radio-button>
+                    <mat-radio-button value="video">Asynchronous learning</mat-radio-button>
+                    <mat-radio-button value="jitsi">Trueleap Meet</mat-radio-button>
+                  </mat-radio-group>
+                    <div fxLayout="row" fxLayoutAlign="start none">
+                      
+                      <div class="request-form" fxLayout="row">
+                        <div
+                          class="request-form-content video-link"
+                          fxFlex="90"
+                        >
+                          <mat-form-field
+                            class="request-field zoom-code"
+                            appearance="outline"
+                            *ngIf="dataObject.videoType === 'zoom'"
+                          >
+                            <mat-label>Zoom Code</mat-label>
+                            <input
+                              matInput
+                              [(ngModel)]="dataObject.zoom"
+                              id="zoom"
+                              name="zoom"
+                              placeholder="Add Zoom Code"
+                              autocomplete="off"
+                              required
+                            />
+                          </mat-form-field>
+                          <mat-form-field
+                            class="request-field zoom-password"
+                            appearance="outline"
+                            *ngIf="dataObject.videoType === 'zoom'"
+                          >
+                            <mat-label>Zoom Password</mat-label>
+                            <input
+                              matInput
+                              [(ngModel)]="dataObject.zoomPassword"
+                              type="password"
+                              id="zoomPassword"
+                              name="zoomPassword"
+                              placeholder="Add Zoom Password"
+                              autocomplete="off"
+                              required
+                            />
+                          </mat-form-field>
+                          <!-- <mat-form-field
+                            class="request-field jitsi-box"
+                            appearance="outline"
+                            *ngIf="dataObject.videoType === 'jitsi'"
+                          >
+                            <mat-label>Meeting Room Name</mat-label>
+                            <input
+                              matInput
+                              [(ngModel)]="dataObject.jitsiRoomName"
+                              id="jitsiRoomName"
+                              name="jitsiRoomName"
+                              placeholder="Add Jitsi Room Name"
+                              autocomplete="off"
+                              required
+                            />
+                          </mat-form-field> -->
+                          <mat-form-field
+                            class="request-field jitsi-box"
+                            appearance="outline"
+                            *ngIf="dataObject.videoType === 'video'"
+                          >
+                            <mat-label>Video URL</mat-label>
+                            <input
+                              matInput
+                              [(ngModel)]="dataObject.videoUrl"
+                              id="videoUrl"
+                              name="videoUrl"
+                              placeholder="Add Video URL"
+                              autocomplete="off"
+                              required
+                            />
+                          </mat-form-field>
+                          <button
+                            style="top: -3px; margin-right: 50px"
+                            mat-raised-button
+                            color="primary"
+                            type="submit"
+                            *ngIf="dataObject.videoType !== 'jitsi'"
+                          >
+                            Update
+                          </button>
+                          <!-- <mat-form-field class="request-field" appearance="outline" style="margin-right: 0px;">
+                              <mat-label>Whiteboard Url</mat-label>
+                              <input matInput [(ngModel)]="dataObject.whiteBoard" id="whiteBoard" name="whiteBoard" placeholder="Add Whiteboard Url" autocomplete="off">
+                            </mat-form-field> -->
+                        </div>
+                        <!-- <div class="request-form-content video-link">
+                          <button
+                            mat-raised-button
+                            color="primary"
+                            (click)="generateNewWhiteboard()"
+                          >
+                            Genarate New Whiteboard
+                          </button>
+                        </div> -->
+                      </div>
+                    </div>
+                    <!-- <div fxLayout="row" fxLayoutAlign="center none">
+                        <button mat-raised-button color="primary" type="submit">Save</button>
+                      </div> -->
+                  </form>
+                </div>
+                <div class="margin-tb" *ngIf="category === 'T'">
+                  <form #authForm="ngForm" (ngSubmit)="onSaveNote(authForm)">
+                    <div fxLayout="row" fxLayoutAlign="start none">
+                      <div class="request-form">
+                        <div class="request-form-content class-notes">
+                          <div
+                            class="request-field-document-type margin-b"
+                            appearance="outline"
+                          >
+                            <mat-radio-group
+                              matInput
+                              [(ngModel)]="dataObject.documentType"
+                              aria-label="Select an option"
+                              id="documentType"
+                              name="documentType"
+                            >
+                              <mat-radio-button value="A"
+                                >Class Assignment</mat-radio-button
+                              >  
+                              <mat-radio-button value="N"
+                                >Class Note</mat-radio-button
+                              >
+                              <mat-radio-button value="Q"
+                                >Quiz</mat-radio-button
+                              >
+                            </mat-radio-group>
+                          </div>
+                          <mat-form-field
+                            class="request-field"
+                            appearance="outline"
+                            [style.width.%]="50"
+                          >
+                            <mat-label>Title</mat-label>
+                            <input
+                              matInput
+                              [(ngModel)]="dataObject.noteTitle"
+                              id="noteTitle"
+                              name="noteTitle"
+                              maxlength="80"
+                              placeholder="Add Title"
+                              autocomplete="off"
+                              required
+                            />
+                            <mat-hint align="end"
+                              >{{ dataObject.noteTitle.length }} / 80</mat-hint
+                            >
+                          </mat-form-field>
+                          <mat-form-field
+                            class="request-field-textarea"
+                            appearance="outline"
+                          >
+                            <mat-label>Content</mat-label>
+                            <textarea
+                              matInput
+                              [(ngModel)]="dataObject.note"
+                              id="note"
+                              name="note"
+                              maxlength="300"
+                              placeholder="Add Content"
+                              autocomplete="off"
+                              required
+                            ></textarea>
+                            <mat-hint align="end"
+                              >{{ dataObject.note.length }} / 300</mat-hint
+                            >
+                          </mat-form-field>
+                          <mat-form-field
+                            class="request-field"
+                            appearance="outline"
+                            [style.width.%]="75"
+                          >
+                            <mat-label>Link/Url</mat-label>
+                            <input
+                              matInput
+                              type="url"
+                              [(ngModel)]="dataObject.link"
+                              id="linkURL"
+                              name="linkURL"
+                              placeholder="Add Link/Url"
+                              autocomplete="off"
+                            />
+                          </mat-form-field>
+                          <mat-form-field
+                            class="request-field-date"
+                            appearance="outline"
+                            *ngIf="dataObject.documentType === 'A'"
+                          >
+                            <input
+                              matInput
+                              type="date"
+                              [(ngModel)]="dataObject.date"
+                              id="date"
+                              [min]="todayDate"
+                              name="date"
+                              placeholder="Completion date"
+                              autocomplete="off"
+                              required
+                            />
+                            <!-- <input matInput [(ngModel)]="dataObject.date" id="date" name="date" [min]="todayDate" [matDatepicker]="picker" placeholder="Completion date" required>
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker> -->
+                          </mat-form-field>
+                          <div fxLayout="row" fxLayoutAlign="start center">
+                            <div
+                              fxFlex="50"
+                              class="request-field-image"
+                              appearance="outline"
+                            >
+                              <mat-label class="note-image-label margin-b"
+                                >Note Image</mat-label
+                              >
+                              <input
+                                type="file"
+                                [(ngModel)]="dataObject.image"
+                                (change)="handleFileInput($event.target.files)"
+                                id="image"
+                                name="image"
+                                placeholder="image"
+                                autocomplete="off"
+                              />
+                            </div>
+                            <div
+                              class="request-field"
+                              appearance="outline"
+                              fxFlex="50"
+                              fxLayout="row"
+                              fxLayoutAlign="start center"
+                            >
+                              <mat-radio-group
+                                matInput
+                                [(ngModel)]="dataObject.checked"
+                                aria-label="Select an option"
+                                id="checked"
+                                name="checked"
+                              >
+                                <mat-radio-button value="Public"
+                                  >Public</mat-radio-button
+                                >
+                                <mat-radio-button value="Private"
+                                  >Private</mat-radio-button
+                                >
+                              </mat-radio-group>
+                            </div>
+                          </div>
+                          <div style="margin: 10px 0 10px 0">
+                            <mat-progress-bar
+                              *ngIf="fileProgressBar"
+                              mode="indeterminate"
+                            ></mat-progress-bar>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center none">
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        type="submit"
+                        style="width: 136px"
+                      >
+                        Add
+                        {{
+                          dataObject.documentType === "N"
+                            ? "Note"
+                            : "Assignment"
+                        }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div class="note-list">
+                  <div class="header-updated-docs" *ngIf="category === 'T'">
+                    Today's Updated Documents
+                  </div>
+                  <!-- <div fxLayout="row" fxLayoutAlign="start none" class="font-12" *ngIf="category === 'T'">
+                      <div fxFlex="12">Whiteboard Url: </div>
+                      <div fxFlex="60">{{dataActual.whiteBoard}}</div>
+                      <div fxFlex="28" *ngIf="category === 'T'">
+                        <button mat-stroked-button color="primary" [disabled]="dataActual.whiteBoard === ''">Public</button>
+                        <button mat-stroked-button color="primary" [disabled]="dataActual.whiteBoard === ''">Private</button> -->
+                  <!-- <button mat-stroked-button color="primary" [disabled]="dataActual.whiteBoard === ''" (click)="onEditStream()">Edit</button> -->
+                  <!-- </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start none" class="font-12" *ngIf="category === 'T'">
+                      <div fxFlex="10">Zoom Code: </div>
+                      <div fxFlex="13">{{dataActual.zoom}}</div>
+                      <div fxFlex="13">Zoom Password: </div>
+                      <div fxFlex="37">{{dataActual.zoomPassword}}</div>
+                      <div fxFlex="28" *ngIf="category === 'T'">
+                        <button mat-stroked-button color="primary" [disabled]="dataActual.zoom === ''">Public</button>
+                        <button mat-stroked-button color="primary" [disabled]="dataActual.zoom === ''">Private</button> -->
+                  <!-- <button mat-stroked-button color="primary" [disabled]="dataActual.zoom === ''" (click)="onEditStream()">Edit</button> -->
+                  <!-- </div>
+                    </div> -->
+                  <!-- <video id="mainPlayer" width="640" height="360"
+
+            autoplay="autoplay" controls="controls" onloadedmetadata="onLoad()"> -->
+                  <!-- <source src="https://35.164.171.15:9000/class/document/public?periodid=5f418ad239b5cc2fd8e6a34a&documentid=08262020085225&Range=bytes=1024" /> -->
+                  <!-- <source src="https://35.164.171.15:9000/fetch/document/public?periodid=5f418ad239b5cc2fd8e6a34a&documentid=08312020115054" />
+        </video> -->
+                  <!-- <mat-card
+                    class="example-card mat-elevation-z2"
+                    *ngIf="category === 'T' && dataActual.zoom !== ''"
+                  >
+                    <mat-card-header>
+                      <mat-card-title
+                        >Zoom/Video/TrueleapMeet Information</mat-card-title
+                      >
+                    </mat-card-header>
+                    <mat-card-content>
+                      <div
+                        fxLayout="row"
+                        fxLayoutAlign="start none"
+                        class="font-12"
+                        *ngIf="dataObject.videoType === 'zoom'"
+                      >
+                        <div fxFlex="10">Zoom Code:</div>
+                        <div fxFlex="25">{{ dataActual.zoom }}</div>
+                        <div fxFlex="15">Zoom Password:</div>
+                        <div fxFlex="50">{{ dataActual.zoomPassword }}</div>
+                      </div>
+                    </mat-card-content>
+                    <mat-card-content>
+                      <div
+                        fxLayout="row"
+                        fxLayoutAlign="start none"
+                        class="font-12"
+                        *ngIf="dataObject.videoType === 'jitsi'"
+                      >
+                        <div fxFlex="20">Jitsi Room Name:</div>
+                        <div fxFlex="25">{{ dataActual.jitsiRoomName }}</div>
+                      </div>
+                    </mat-card-content>
+                    <mat-card-content>
+                      <div
+                        fxLayout="row"
+                        fxLayoutAlign="start none"
+                        class="font-12"
+                        *ngIf="dataObject.videoType === 'video'"
+                      >
+                        <div fxFlex="15">Video URL:</div>
+                        <div fxFlex="25">{{ dataActual.videoUrl }}</div>
+                      </div>
+                    </mat-card-content>
+                  </mat-card> -->
+                  <div
+                    class="note-list-separator"
+                    *ngFor="let item of dataActual.noteList"
+                  >
+                    <!--<div fxLayout="row" fxLayoutAlign="start none" class="font-12">
+                        <div fxFlex="5">Title: </div>
+                        <div fxFlex="67" class="break-word">{{item.title}}</div>
+                        <div fxFlex="28" *ngIf="category === 'T'">
+                          <button mat-stroked-button color="primary">Public</button>
+                          <button mat-stroked-button color="primary">Private</button>
+                          <button mat-stroked-button color="primary" (click)="onEditNote(item)">Edit</button>
+                        </div>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="start none" class="font-12">
+                        <div fxFlex="5">Note: </div>
+                        <div fxFlex="95" class="break-word">{{item.note}}</div>
+                         <div fxFlex="28" *ngIf="category === 'T'">
+                          <button mat-stroked-button color="primary">Public</button>
+                          <button mat-stroked-button color="primary">Private</button>
+                          <button mat-stroked-button color="primary" (click)="onEditNote(item)">Edit</button>
+                        </div> -->
+                    <!-- </div>
+                      <div fxLayout="row" fxLayoutAlign="start none" class="font-12">
+                        <div class="image-download">{{item.filename}}</div>
+                        <div fxFlex="57" class="break-word"><a href="{{item.image}}" target="_blank">{{item.filename}}</a></div>
+                        <div fxFlex="28" *ngIf="category === 'T'">
+                          <button mat-stroked-button color="primary">Public</button>
+                          <button mat-stroked-button color="primary">Private</button>
+                          <button mat-stroked-button color="primary" (click)="onEditNote(item)">Edit</button>
+                        </div> -->
+                    <mat-card class="example-card mat-elevation-z2">
+                      <mat-card-header>
+                        <div mat-card-avatar class="material-icons">
+                          assignment
+                        </div>
+                        <mat-card-title>{{ item.title }}</mat-card-title>
+                        <div
+                          class="mat-card-header-assignment-due"
+                          *ngIf="
+                            item.docType === 'Assignment' &&
+                            checkDate(item.validupto)
+                          "
+                        >
+                          <span>Due on {{ formatDate(item.validupto) }}</span>
+                        </div>
+                        <div
+                          class="mat-card-header-assignment-due-green"
+                          *ngIf="
+                            item.docType === 'Assignment' &&
+                            !checkDate(item.validupto)
+                          "
+                        >
+                          <span>Due on {{ formatDate(item.validupto) }}</span>
+                        </div>
+                      </mat-card-header>
+                      <mat-card-content>
+                        {{ item.note }}
+                        <br />
+                        <!-- <button mat-button (click)="onLink(item)" style="padding-left: 0px; color: #5956F4;">{{item.link}}</button> -->
+                        <a [href]="item.link" target="_blank">{{
+                          item.link
+                        }}</a>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <button
+                          mat-button
+                          mat-stroked-button
+                          *ngIf="category === 'T'"
+                        >
+                          Public
+                        </button>
+                        <button
+                          mat-button
+                          mat-stroked-button
+                          *ngIf="category === 'T'"
+                          disabled
+                        >
+                          Private
+                        </button>
+                        <button
+                          mat-button
+                          mat-stroked-button
+                          *ngIf="category === 'T'"
+                          (click)="onEditNote(item)"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          mat-button
+                          mat-stroked-button
+                          *ngIf="category === 'T'"
+                          (click)="onDeleteNote(item)"
+                        >
+                          Delete
+                        </button>
+                        <button *ngIf="category === 'S'"></button>
+                        <button
+                          *ngIf="category === 'S'"
+                          mat-raised-button
+                          type="button"
+                          style="
+                            float: right;
+                            height: 24px;
+                            margin: -5px 5px 0px 0;
+                          "
+                          (click)="submitAssignment(item)"
+                        >
+                          Submit Assginment
+                        </button>
+                        <button
+                          mat-button
+                          *ngIf="item.filename !== ''"
+                          (click)="onDownload(item)"
+                          style="float: right; color: #2185d0"
+                        >
+                          {{ item.filename }}
+                        </button>
+                      </mat-card-actions>
+                    </mat-card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </div>
+</div>

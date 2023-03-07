@@ -1,0 +1,15 @@
+<div class="submit-assignment-weight-wrapper">
+  <div class="header">
+    <div class="header-text">Generate New Whiteboard</div>
+    <!-- <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon> -->
+  </div>
+  <div class="content-chat-history">
+    <div fxLayout="row" fxLayoutAlign="start none" style="padding: 10px 10px 0 10px;">
+      This will erase/delete all the informations of existing whiteboard and will generate a new whiteboard.   
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center none" style="padding: 20px 0px 20px 0px;">
+      <button mat-raised-button color="primary" (click)="onCancelClick('yes')" style="margin-right: 10px;">Genarate</button>
+      <button mat-raised-button color="primary" (click)="onCancelClick('no')">Cancel</button>
+    </div>
+  </div>
+</div>

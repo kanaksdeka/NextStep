@@ -1,0 +1,8 @@
+<!-- <img src="assets/icons/logo.png" class="logo"> -->
+<div class="header-logo-image"></div>
+<mat-list *ngFor="let nav of menuList" id="listitem">
+  <mat-list-item (click)="onGoToPage(nav)">
+    <span class="menu-text" style="opacity: .87;">{{nav.name}}</span>
+  </mat-list-item>
+</mat-list>
+<div class="software-version">Software Version 1.1 <br>Contact</div>

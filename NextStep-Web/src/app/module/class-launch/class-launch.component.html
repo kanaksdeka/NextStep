@@ -1,0 +1,203 @@
+<div class="gcp-body">
+  <div class="menu-static" [hidden]="extraElement">
+    <div class="header-logo">
+      <img (click)="drawer.toggle()" src="assets/icons/hamburger.svg" class="hamburger">
+    </div>
+    <app-menu-static></app-menu-static>
+  </div>
+  <div class="dashboard-container" [ngStyle]="{'left':extraElement ? '0px' : '40px' }">
+    <mat-drawer-container autosize>
+        <app-header [hidden]="extraElement"></app-header>
+        <mat-drawer #drawer mode="side" class="sidenav-container">
+            <app-menu-drawer ></app-menu-drawer>
+        </mat-drawer>
+        <div class="main-content">
+          <div class="content-wrap" [ngStyle]="{'margin':extraElement ? '0px' : '20px 0px 20px 20px', 'width':extraElement ? '100%' : '96%' }">
+            <div class="header" [hidden]="extraElement">
+              <div class="header-text">
+                <div>{{title}}</div>
+                <div class="header-text-sub">
+                  Home > <span class="header-text-sub-link" (click)="onCancelClick()">Class Details</span> > Launch Class
+                </div>
+              </div>
+              <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+              <mat-form-field class="request-field-layout" appearance="outline">
+                <mat-select matInput [(ngModel)]="layoutType" (selectionChange)="onLayoutChange()" id="layoutType" name="layoutType">
+                  <mat-option value="default">Default Layout</mat-option>
+                  <mat-option value="video">Video Layout</mat-option>
+                  <mat-option value="whiteboard">Whiteboard Layout</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <i class="material-icons toggle-chatbox-notes" (click)="toggleNoteChat('chatbox-to-Note')" *ngIf="showAll.chatbox" matTooltip="Switch to Notes" aria-label="Switch to Notes"> library_books </i>
+              <i class="material-icons toggle-chatbox-notes" (click)="toggleNoteChat('chatbox-to-Note')" *ngIf="showAll.classnote" matTooltip="Switch to Chatbox" aria-label="Switch to Chatbox"> chat </i>
+              <i class="material-icons toggle-chatbox-notes" (click)="classAttendance()" *ngIf="userinfo.category === 'T'" matTooltip="Get Attendance" aria-label="Get Attendance"> supervisor_account </i>
+              <span *ngIf="timerDisplay" class="timer">{{timerDisplay}}</span>
+              <!-- <span>{{getResponseAttendance()}}</span> -->
+              <button mat-stroked-button color="accent" class="attendance" (click)="startAttendance('Y')" *ngIf="userinfo.category === 'T' && getAttendance() !== 'Y'">Start Attendance</button><span style="color: #373737;">{{getAttendance()}}</span>
+              <button mat-stroked-button color="accent" class="attendance" (click)="startAttendance('N')" *ngIf="userinfo.category === 'T' && getAttendance() === 'Y'">Stop Attendance</button>
+            </div>
+            <div class="content class-detials" style="height: 100%;">
+              <div style="float: left;" [ngStyle]="{ 'width': firstdiv }">
+                <div class="wrapper video" [hidden]="!showAll.video">
+                  <div class="head-div">Video Screen 
+                    <i class="material-icons" (click)="toggleScreen('video', 'first')" *ngIf="videowidth === '70%'" matTooltip="Full Screen" aria-label="Full Screen"> fullscreen </i>
+                    <i class="material-icons" (click)="toggleNormal()" *ngIf="videowidth === '100%'" matTooltip="Exit Full Screen" aria-label="Exit Full Screen"> fullscreen_exit </i>
+                    <i class="material-icons" (click)="switchScreen('chatbox')" *ngIf="videowidth === '100%'" matTooltip="Switch To ChatBox" aria-label="Switch Screen"> chat </i>
+                    <i class="material-icons" (click)="switchScreen('classnote')" *ngIf="videowidth === '100%'" matTooltip="Switch To Class Note" aria-label="Switch Screen"> sticky_note_2 </i>
+                    <i class="material-icons" (click)="switchScreen('whiteboard')" *ngIf="videowidth === '100%'" matTooltip="Switch To Whiteboard" aria-label="Switch Screen"> switch_camera </i>
+                  </div>
+                  <div [ngClass]="[extraElement ? 'video-extra' : 'video-normal']" [ngStyle]="{ 'height': videoheight }">
+                    <!-- <iframe src="http://35.164.171.15:5001/boards/trueleap" title="zoom" frameborder="0" noscrolling="yes" width="100%" height="100%"></iframe> -->
+                    <div *ngIf="classDetails.videoType === 'jitsi'" id="meet" [ngClass]="[extraElement ? 'video-extra' : 'video-normal']" style="height: 100%;"></div>
+                    <div *ngIf="classDetails.videoType === 'zoom'" [ngClass] = "[extraElement ? 'video-extra' : 'video-normal']" #myEl></div>
+                    <iframe *ngIf="classDetails.videoType === 'video'" width="100%" height="100%" [src]="videoUrl"></iframe>   
+                  </div>
+                </div>
+                <!-- <div class="wrapper classnote" [hidden]="!showAll.classnote">
+                  <div class="head-div">Class Note 
+                    <i class="material-icons" (click)="toggleScreen('classnote', 'first')" *ngIf="classnotewidth === '70%'" matTooltip="Full Screen" aria-label="Full Screen"> fullscreen </i>
+                    <i class="material-icons" (click)="toggleNormal()" *ngIf="classnotewidth === '100%'" matTooltip="Exit Full Screen" aria-label="Exit Full Screen"> fullscreen_exit </i>
+                    <i class="material-icons" (click)="switchScreen('chatbox')" *ngIf="classnotewidth === '100%'" matTooltip="Switch To ChatBox" aria-label="Switch Screen"> chat </i>
+                    <i class="material-icons" (click)="switchScreen('whiteboard')" *ngIf="classnotewidth === '100%'" matTooltip="Switch To Whiteboard" aria-label="Switch Screen"> switch_camera </i>
+                    <i class="material-icons" (click)="switchScreen('video')" *ngIf="classnotewidth === '100%'" matTooltip="Switch To Video" aria-label="Switch Screen"> switch_video </i>
+                  </div>
+                  <div [ngClass]="[extraElement ? 'class-extra' : 'class-normal']" [ngStyle]="{ 'height': classnoteheight }">
+                    <form #authForm="ngForm">
+                      <div fxLayout="row" fxLayoutAlign="start none">
+                        <div class="request-form">
+                          <div class="request-form-content">
+                            <mat-form-field class="request-field" appearance="outline">
+                              <mat-label>Class Note</mat-label>
+                              <input matInput [(ngModel)]="noteclass" id="noteclass" name="noteclass" placeholder="" autocomplete="off" required>
+                            </mat-form-field>
+                          </div>
+                        </div> 
+                      </div>
+                      </form>
+                  </div>
+                </div> -->
+              </div>
+              <div style="float: right;" [ngStyle]="{ 'width': seconddiv }">
+                <div class="wrapper whiteboard" [hidden]="!showAll.whiteboard">
+                  <div class="head-div">Whiteboard 
+                    <i class="material-icons" (click)="toggleScreen('whiteboard', 'second')" *ngIf="whiteboardwidth === '29%'" matTooltip="Full Screen" aria-label="Full Screen"> fullscreen </i>
+                    <i class="material-icons" (click)="toggleNormal()" *ngIf="whiteboardwidth === '100%'" matTooltip="Exit Full Screen" aria-label="Exit Full Screen"> fullscreen_exit </i>
+                    <i class="material-icons" (click)="switchScreen('chatbox')" *ngIf="whiteboardwidth === '100%'" matTooltip="Switch To ChatBox" aria-label="Switch Screen"> chat </i>
+                    <i class="material-icons" (click)="switchScreen('classnote')" *ngIf="whiteboardwidth === '100%'" matTooltip="Switch To Class Note" aria-label="Switch Screen"> sticky_note_2 </i>
+                    <i class="material-icons" (click)="switchScreen('video')" *ngIf="whiteboardwidth === '100%'" matTooltip="Switch To Video" aria-label="Switch Screen"> switch_video </i>
+                  </div>
+                  <div [ngClass]="[extraElement ? 'white-extra' : 'white-normal']" [ngStyle]="{ 'height': whiteboardheight }">
+                    <iframe [src]="whiteBoardurl" title="whiteboard" frameborder="0" width="100%" height="100%"></iframe>
+                  </div>
+                </div>
+                <div class="wrapper chatbox" [hidden]="!showAll.chatbox">
+                  <div class="head-div">Chatbox 
+                    <i class="material-icons" (click)="toggleScreen('chatbox', 'second')" *ngIf="chatboxwidth === '29%'" matTooltip="Full Screen" aria-label="Full Screen"> fullscreen </i>
+                    <i class="material-icons" style="margin-top: 3px; font-size: 20px;" (click)="toggleNoteChat('chatbox-to-Note')" *ngIf="chatboxwidth === '29%'" matTooltip="Switch to Notes" aria-label="Switch to Notes"> library_books </i>
+                    <i class="material-icons" (click)="toggleNormal()" *ngIf="chatboxwidth === '100%'" matTooltip="Exit Full Screen" aria-label="Exit Full Screen"> fullscreen_exit </i>
+                    <i class="material-icons" (click)="switchScreen('classnote')" *ngIf="chatboxwidth === '100%'" matTooltip="Switch To Class Note" aria-label="Switch Screen"> sticky_note_2 </i>
+                    <i class="material-icons" (click)="switchScreen('whiteboard')" *ngIf="chatboxwidth === '100%'" matTooltip="Switch To Whiteboard" aria-label="Switch Screen"> switch_camera </i>
+                    <i class="material-icons" (click)="switchScreen('video')" *ngIf="chatboxwidth === '100%'" matTooltip="Switch To Video" aria-label="Switch Screen"> switch_video </i>
+                  </div>
+                  <div [ngClass]="[extraElement ? 'chat-extra' : 'chat-normal']" [ngStyle]="{ 'height': chatboxheight }">
+                    <div [ngStyle]="{ 'height': chatHeight(chatboxheight) }" id="chat-box-scroll-bottom" style="overflow: auto; font-size: 12px; padding: 5px 5px 0 10px;">
+                      <div *ngFor="let msg of getMessage()">
+                        <span style="color: blue; font-weight: 500;" *ngIf="parseChatText(msg) === '$raisehand;'">{{parseChatTextUser(msg)}}:</span><img *ngIf="parseChatText(msg) === '$raisehand;'" src="assets/icons/hand-raise-icon.jpg" width="15" class="logo">
+                        <span style="color: blue; font-weight: 500;" *ngIf="parseChatText(msg) === '$emoji-i-applause;'">{{parseChatTextUser(msg)}}:</span><img *ngIf="parseChatText(msg) === '$emoji-i-applause;'" src="assets/icons/emoji-i-applause.png" width="15" class="logo">
+                        <span style="color: blue; font-weight: 500;" *ngIf="parseChatText(msg) === '$emoji-i-emoticon;'">{{parseChatTextUser(msg)}}:</span><img *ngIf="parseChatText(msg) === '$emoji-i-emoticon;'" src="assets/icons/emoji-i-emoticon.png" width="15" class="logo">
+                        <span style="color: blue; font-weight: 500;" *ngIf="parseChatText(msg) === '$emoji-i-ok;'">{{parseChatTextUser(msg)}}:</span><img *ngIf="parseChatText(msg) === '$emoji-i-ok;'" src="assets/icons/emoji-i-ok.png" width="15" class="logo">
+                        <span style="color: blue; font-weight: 500;" *ngIf="parseChatText(msg) === '$emoji-i-bell;'">{{parseChatTextUser(msg)}}:</span><img *ngIf="parseChatText(msg) === '$emoji-i-bell;'" src="assets/icons/emoji-i-bell.png" width="15" class="logo">
+                        <span style="color: blue; font-weight: 500;" *ngIf="parseChatText(msg) === '$emoji-i-star;'">{{parseChatTextUser(msg)}}:</span><img *ngIf="parseChatText(msg) === '$emoji-i-star;'" src="assets/icons/emoji-i-star.png" width="20" class="logo">
+                        <span style="color: blue; font-weight: 500;" *ngIf="parseChatText(msg) !== '$raisehand;' && parseChatText(msg) !== '$emoji-i-applause;' && parseChatText(msg) !== '$emoji-i-emoticon;' && parseChatText(msg) !== '$emoji-i-ok;' && parseChatText(msg) !== '$emoji-i-bell;' && parseChatText(msg) !== '$emoji-i-star;'">{{parseChatTextUser(msg)}}:</span> <span *ngIf="parseChatText(msg) !== '$raisehand;' && parseChatText(msg) !== '$emoji-i-applause;' && parseChatText(msg) !== '$emoji-i-emoticon;' && parseChatText(msg) !== '$emoji-i-ok;' && parseChatText(msg) !== '$emoji-i-bell;' && parseChatText(msg) !== '$emoji-i-star;'">{{parseChatText(msg)}}</span>
+                      </div>
+                    </div>
+                    <form #chatsForm="ngForm" (ngSubmit)="sendMessage('message')">
+                      <div fxLayout="row" fxLayoutAlign="start none">
+                        <div class="request-form">
+                          <div class="request-form-content">
+                            <img src="assets/icons/hand-raise-icon.jpg" width="20" style="cursor: pointer;" matTooltip="Raise Hand" class="logo" (click)="sendMessage('raisehand')">
+                            <img src="assets/icons/emoji-i-applause.png" width="20" style="cursor: pointer;" matTooltip="Applause" class="logo" (click)="sendMessage('emoji-i-applause')">
+                            <img src="assets/icons/emoji-i-emoticon.png" width="20" style="cursor: pointer;" matTooltip="Emotion" class="logo" (click)="sendMessage('emoji-i-emoticon')">
+                            <img src="assets/icons/emoji-i-ok.png" width="20" style="cursor: pointer;" matTooltip="Ok" class="logo" (click)="sendMessage('emoji-i-ok')">
+                            <img src="assets/icons/emoji-i-bell.png" width="20" style="cursor: pointer;" matTooltip="Bell" class="logo" (click)="sendMessage('emoji-i-bell')">
+                            <img src="assets/icons/emoji-i-star.png" width="30" style="cursor: pointer;" matTooltip="Star" class="logo" (click)="sendMessage('emoji-i-star')">
+                            <mat-form-field class="request-field" appearance="outline" style="height: 55px;">
+                              <input matInput [(ngModel)]="chatinputbox" id="chatinputbox" name="chatinputbox" placeholder="Type message and press enter" autocomplete="off">
+                            </mat-form-field>
+                          </div>
+                        </div> 
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="wrapper classnote" [hidden]="!showAll.classnote">
+                  <div class="head-div">Class Note 
+                    <i class="material-icons" (click)="toggleScreen('classnote', 'first')" *ngIf="classnotewidth === '29%'" matTooltip="Full Screen" aria-label="Full Screen"> fullscreen </i>
+                    <i class="material-icons" style="margin-top: 3px; font-size: 20px;" (click)="toggleNoteChat('chatbox-to-Note')" *ngIf="chatboxwidth === '29%'" matTooltip="Switch to Chatbox" aria-label="Switch to Chatbox"> chat </i>
+                    <i class="material-icons" (click)="toggleNormal()" *ngIf="classnotewidth === '100%'" matTooltip="Exit Full Screen" aria-label="Exit Full Screen"> fullscreen_exit </i>
+                    <i class="material-icons" (click)="switchScreen('chatbox')" *ngIf="classnotewidth === '100%'" matTooltip="Switch To ChatBox" aria-label="Switch Screen"> chat </i>
+                    <i class="material-icons" (click)="switchScreen('whiteboard')" *ngIf="classnotewidth === '100%'" matTooltip="Switch To Whiteboard" aria-label="Switch Screen"> switch_camera </i>
+                    <i class="material-icons" (click)="switchScreen('video')" *ngIf="classnotewidth === '100%'" matTooltip="Switch To Video" aria-label="Switch Screen"> switch_video </i>
+                  </div>
+                  <div [ngClass]="[extraElement ? 'class-extra' : 'class-normal']" [ngStyle]="{ 'height': classnoteheight }">
+                    <form #noteForm="ngForm" (ngSubmit)="onSaveNote(noteForm)">
+                      <div fxLayout="row" fxLayoutAlign="start none">
+                        <div class="request-form">
+                          <div class="request-form-content">
+                            <mat-form-field class="request-field" appearance="outline">
+                              <mat-label>Class Note</mat-label>
+                              <textarea matInput style="height: 100px;" [(ngModel)]="noteclass" id="noteclass" name="noteclass" placeholder="" autocomplete="off" required></textarea>
+                            </mat-form-field>
+                          </div>
+                          <div fxLayout="row" fxLayoutAlign="center none">
+                            <button style="margin-top: 20px;" mat-raised-button color="primary" type="submit" [disabled]="!noteForm.valid">Save Note</button>
+                          </div>
+                        </div> 
+                      </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <!-- <div fxLayout="row" fxLayoutAlign="start none">
+                <div fxLayout="column" fxLayoutAlign="start none" [ngStyle]="{ 'width': test1 }" fxFlex="70" style="margin-right: 10px;">
+                  <div class="wrapper video">
+                    <div class="head-div">Video Screen/Powerpoint <i class="material-icons full-screen" (click)="test()"> open_in_full </i></div>
+                    <div [ngStyle]="{ 'height': videoheight }">
+                      <iframe src="http://35.164.171.15:5001/boards/trueleap" title="zoom" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                  </div>
+                  <div class="wrapper classnote" [ngStyle]="{ 'width': classnotewidth }">
+                    <div class="head-div">Class Notes <i class="material-icons full-screen" (click)="test()"> open_in_full </i></div>
+                    <div [ngStyle]="{ 'height': classnoteheight }"></div>
+                  </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start none" fxFlex="28" [ngStyle]="{ 'width': test2 }">
+                  <div class="wrapper whiteboard" [ngStyle]="{ 'width': whiteboardwidth }">
+                    <div class="head-div">Whiteboard <i class="material-icons full-screen" (click)="test()"> open_in_full </i></div>
+                    <div [ngStyle]="{ 'height': whiteboardheight }">
+                      <iframe src="http://35.164.171.15:5001/boards/trueleap" title="whiteboard" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                  </div>
+                  <div class="wrapper chatbox" [ngStyle]="{ 'width': chatboxdwidth }">
+                    <div class="head-div">Chat Box <i class="material-icons full-screen" (click)="test()"> open_in_full </i></div>
+                    <div [ngStyle]="{ 'height': chatboxheight }"></div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div fxLayout="row" fxLayoutAlign="start none">
+                <div class="wrapper classnote" [ngStyle]="{ 'width': classnotewidth }">
+                  <div class="head-div">Class Notes <i class="material-icons full-screen" (click)="test()"> open_in_full </i></div>
+                  <div [ngStyle]="{ 'height': classnoteheight }"></div>
+                </div>
+                <div class="wrapper chatbox" [ngStyle]="{ 'width': chatboxdwidth }">
+                  <div class="head-div">Chat Box <i class="material-icons full-screen" (click)="test()"> open_in_full </i></div>
+                  <div [ngStyle]="{ 'height': chatboxheight }"></div>
+                </div>
+              </div> -->
+            </div>    
+          </div>      
+        </div>
+    </mat-drawer-container>
+  </div>
+</div>
+

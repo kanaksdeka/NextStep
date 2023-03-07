@@ -1,0 +1,39 @@
+<div class="notification-list-wrapper">
+  <div class="header">
+    <div class="header-text">Notifications</div>
+    <mat-icon aria-hidden="false" class="close-cross" (click)="onCancelClick()" aria-label="Example close icon">close</mat-icon>
+  </div>
+  <div class="content-wrapp" [ngClass]="[load ? 'content-load' : 'content']">
+    <mat-list role="list" *ngFor="let item of list; let indexOfelement=index;">
+      <mat-list-item role="listitem">
+        <div fxLayout="row" fxLayoutAlign="start none">
+          <!-- <div fxFlex="1" style="background-color: blue; color: blue; margin-right: 5px;">I</div> -->
+          <div *ngIf="!item.viewed">
+            <button mat-mini-fab color="primary" matTooltip="Mark as Read" aria-label="Mark as Read" (click)="onMarkAsRead(item)">
+              <mat-icon>mail</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="item.viewed">
+            <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+              <mat-icon>mail_outline</mat-icon>
+            </button>
+          </div>
+          <div class="not-text" style="cursor: pointer;" *ngIf="!item.viewed" (click)="onExpand(item)">
+            <div class="notify-text">
+              {{item.message.note}}
+              <!-- <span *ngIf="item.limitedText !== ''" class="tooltiptext">{{item.limitedText}}</span> -->
+            </div>
+            <div style="font-size: 11px; color: darkolivegreen;">{{item.date}}</div>
+          </div>
+          <div *ngIf="item.viewed">
+            <div class="notify-text">
+              {{item.message.note}}
+              <!-- <span *ngIf="item.limitedText !== ''" class="tooltiptext">{{item.limitedText}}</span> -->
+            </div>
+            <div style="font-size: 11px; color: darkolivegreen;">{{item.date}}</div>
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>    
+  </div>
+</div>
